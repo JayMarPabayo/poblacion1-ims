@@ -3,7 +3,7 @@
 <main class="container-fluid flex-grow-1 py-2 login-main">
     <div class="row pt-2 px-5 mx-5 gy-3">
         <a href="https://www.philatlas.com/mindanao/r10/misamis-oriental/villanueva.html" target="_blank" class="col-3 text-decoration-none cursor-pointer">
-            <div class="card py-4 bg-warning bg-opacity-75">
+            <div class="card py-4 text-white bg-secondary bg-opacity-75">
                 <div class="card-body">
                     <header class="d-flex justify-content-between">
                         <h3 class="card-title">Population</h3>
@@ -94,7 +94,7 @@
             </div>
         </a>
         <a href="https://www.philatlas.com/mindanao/r10/misamis-oriental/villanueva.html" target="_blank" class="col-3 text-decoration-none cursor-pointer">
-            <div class="card py-4 bg-secondary bg-opacity-75">
+            <div class="card py-4 bg-warning bg-opacity-75">
                 <div class="card-body">
                     <header class="d-flex justify-content-between">
                         <h3 class="card-title">Revenue</h3>
