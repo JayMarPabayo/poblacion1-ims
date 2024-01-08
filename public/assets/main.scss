@@ -1,0 +1,43 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+  }
+  
+  main {
+    background-image: url("./img/bg-image.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+  
+  .pb-10 {
+    padding-bottom: 10rem !important;
+  }
+  .h10 {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  
+  .form-label {
+    color: gray;
+  }
+  
+  .cursor-pointer {
+    cursor: pointer;
+    :hover {
+      cursor: pointer;
+    }
+  }
+  
