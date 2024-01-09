@@ -7,14 +7,14 @@ namespace App\Controllers;
 use Framework\TemplateEngine;
 use App\Config\Paths;
 
-class LoginController
+class ResidentsController
 {
     public function __construct(private TemplateEngine $view)
     {
     }
 
-    public function login()
+    public function residents()
     {
-        echo $this->view->render("/login.php");
+        echo $this->view->render("/residents.php");
     }
 }

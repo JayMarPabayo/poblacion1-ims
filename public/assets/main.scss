@@ -6,20 +6,10 @@ body {
   }
   
   main {
-    background-image: url("./img/bg-image.jpg");
+    background-image: url("./img/bg-image-50.jpg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    position: relative;
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background-color: rgba(0, 0, 0, 0.5);
-    }
   }
   
   .pb-10 {
@@ -39,5 +29,31 @@ body {
     :hover {
       cursor: pointer;
     }
+  }
+
+  .table {
+    th, td {
+      background-color: transparent;
+      font-size: 0.9rem;
+    }
+  }
+
+  .fixed-btn {
+    position: fixed;
+    bottom: 5rem;
+    right: 3rem;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    :hover {
+      color: black;
+      font-size: calc(1.375rem + 1.5vw) !important;
+    }
+    :active {
+      color: black;
+      font-size: calc(1rem + 1.5vw) !important;
+    }
+    
   }
   
