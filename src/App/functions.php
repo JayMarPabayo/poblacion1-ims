@@ -30,3 +30,8 @@ function calculateAge($birthDate)
     $ageInterval = $currentDate->diff($birthDate);
     return $ageInterval->y;
 }
+
+function convertToYesNo(int $value)
+{
+    return ($value === 1) ? 'Yes' : 'No';
+}

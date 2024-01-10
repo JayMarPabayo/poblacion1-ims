@@ -14,6 +14,8 @@ class HomeController
 
     public function home()
     {
-        echo $this->view->render("/index.php");
+        echo $this->view->render("/index.php", [
+            'path' => parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
+        ]);
     }
 }

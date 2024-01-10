@@ -18,21 +18,24 @@ class AuthController
     {
         $users = $this->userService->getAllUsers();
         echo $this->view->render("users.php", [
-            'users' => $users
+            'users' => $users,
+            'path' => parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
         ]);
     }
 
     public function register()
     {
-        $this->validatorService->validateRegister($_POST);
-        $this->userService->isEmailTaken($_POST['email']);
+        // $this->validatorService->validateRegister($_POST);
+        // $this->userService->isEmailTaken($_POST['email']);
         $this->userService->create($_POST);
         redirectTo('/');
     }
 
     public function loginView()
     {
-        echo $this->view->render("login.php");
+        echo $this->view->render("login.php", [
+            'path' => parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
+        ]);
     }
 
     public function login()

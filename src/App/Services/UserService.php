@@ -61,9 +61,16 @@ class UserService
             throw new ValidationException(['password' => ['Invalid credentials']]);
         }
 
+        // Update last logon timestamp
+        $this->db->query("UPDATE tbl_users SET user_last_logon = CURRENT_TIMESTAMP WHERE user_id = :userId", [
+            'userId' => $user['user_id']
+        ]);
+
+
         session_regenerate_id();
 
         $_SESSION['user'] = $user['user_id'];
+        $_SESSION['user-role'] = $user['user_role'];
     }
 
     public function logout()

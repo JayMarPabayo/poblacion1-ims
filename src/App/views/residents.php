@@ -4,12 +4,12 @@
     <div class="row mt-2 pb-2 px-5 mx-5 gy-3 shadow-lg rounded-3 bg-light bg-opacity-50">
         <h4 class="p-0">Residents</h4>
         <!-- Search -->
-        <div class="form-group-sm py-1 col-4 row align-items-center">
+        <form id="search-form" class="form-group-sm py-1 col-4 row align-items-center" method="GET">
             <label for="search" class="col-sm-1 col-form-label"><i class="bi bi-search fs-5"></i></label>
             <div class="col-sm">
-                <input type="text" name="search" id="search" placeholder="First name" class="form-control form-control-plaintext ps-3 border-bottom">
+                <input type="text" name="search" id="search" placeholder="Search" class="form-control form-control-sm ps-3 border-dark-subtle border-bottom border-2 border-top-0 border-start-0 border-end-0" value="<?= $_GET['search'] ?? ''; ?>">
             </div>
-        </div>
+        </form>
         <table class="table">
             <thead>
                 <tr>
@@ -20,18 +20,28 @@
                     <th scope="col">Contact</th>
                     <th scope="col">Voter</th>
                     <th scope="col">Civil Status</th>
+                    <th class="text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($residents as $resident) : ?>
                     <tr>
                         <td><?= e($resident['resident_first_name'] . ' ' . $resident['resident_middle_name'] . ' ' . $resident['resident_last_name']) ?></td>
-                        <td><?= e($resident['resident_purok']); ?></td>
+                        <td><?= e($resident['purok_name']); ?></td>
                         <td><?= e($resident['resident_gender']); ?></td>
                         <td><?= calculateAge(e($resident['resident_birthdate'])); ?></td>
                         <td><?= e($resident['resident_contact']); ?></td>
-                        <td><?= e($resident['resident_voter_status']); ?></td>
+                        <td><?= convertToYesNo(e($resident['resident_voter_status'])); ?></td>
                         <td><?= e($resident['resident_civil_status']); ?></td>
+                        <td class="justify-content-center gap-2 row">
+                            <button type="button" class="btn btn-dark btn-sm col-4">
+                                <i class="bi bi-pencil fs-6"></i> Edit
+                            </button>
+
+                            <button type="button" class="btn btn-light btn-sm col-4">
+                                <i class="bi bi-trash fs-6"></i> Remove
+                            </button>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

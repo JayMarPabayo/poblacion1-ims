@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Config;
 
 use Framework\App;
-use App\Controllers\{HomeController, ResidentsController, AuthController};
+use App\Controllers\{HomeController, ResidentsController, AuthController, OfficialsController};
 use App\Middleware\{AuthRequiredMiddleware, GuestOnlyMiddleware};
 
 function registerRoutes(App $app)
@@ -18,4 +18,6 @@ function registerRoutes(App $app)
     $app->get('/logout', [AuthController::class, 'logout'])->add(AuthRequiredMiddleware::class);
     $app->get('/residents', [ResidentsController::class, 'residentsView'])->add(AuthRequiredMiddleware::class);
     $app->post('/residents', [ResidentsController::class, 'create'])->add(AuthRequiredMiddleware::class);
+    $app->get('/officials', [OfficialsController::class, 'officialsView'])->add(AuthRequiredMiddleware::class);
+    $app->post('/officials', [OfficialsController::class, 'create'])->add(AuthRequiredMiddleware::class);
 }

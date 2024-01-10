@@ -26,10 +26,10 @@
                 <div class="collapse navbar-collapse" id="navbarMenu">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a href="/" class="nav-link active" aria-current="page">Dashboard</a>
+                            <a href="/" class="nav-link <?= $path === '/' ? 'active' : ''; ?>" aria-current="page">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/residents" class="nav-link">Residents</a>
+                            <a href="/residents" class="nav-link <?= $path === '/residents' ? 'active' : ''; ?>">Residents</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -40,10 +40,13 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="/users" class="nav-link">Users</a>
+                            <a href="/users" class="nav-link <?= $path === '/users' ? 'active' : ''; ?>">Users</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/logout" class="nav-link" onclick="confirmLogout()">Log off</a>
+                            <a href="/officials" class="nav-link <?= $path === '/officials' ? 'active' : ''; ?>">Officials</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:void(0);" onclick="confirmLogout()" class="nav-link">Log off</a>
                         </li>
                     </ul>
                 </div>

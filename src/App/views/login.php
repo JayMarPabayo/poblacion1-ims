@@ -6,7 +6,7 @@
             <p class="text-white opacity-75 mt-3">This platform manages residential records and facilitates the issuance of various documents, including barangay clearances & permits, residence certificates, blotters, and other pertinent data. The system serves as a comprehensive repository for essential information concerning residents and ensures efficient administration of barangay Poblacion-1 related matters.</p>
         </div>
         <div class="col p-0 w-100">
-            <div class="container w-75 pt-5 px-4 pb-10 shadow-lg rounded-3 float-end bg-light bg-opacity-50">
+            <div class="container w-75 pt-5 px-4 pb-10 shadow-lg rounded-3 float-end bg-light bg-opacity-50 position-relative">
                 <form id="login-form" class="d-flex flex-column gap-3" method="POST" novalidate>
                     <?php include $this->resolve('partials/_csrf.php'); ?>
 
@@ -38,6 +38,12 @@
                         <a href="#" class="btn-link">Forgot password?</a>
                     </div>
                 </form>
+                <?php if (isset($errors['password'])) : ?>
+                    <div role="alert" class="alert alert-danger alert-dismissible fade show container position-absolute" style="width: 90%; bottom: 10%; left: 50%; transform: translateX(-50%);">
+                        <?= $errors['password'][0]; ?>
+                        <input type="button" value="" class="btn-close" aria-label="close" data-bs-dismiss="alert">
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>

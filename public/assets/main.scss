@@ -34,7 +34,6 @@ body {
   .table {
     th, td {
       background-color: transparent;
-      font-size: 0.9rem;
     }
   }
 
@@ -57,11 +56,15 @@ body {
     
   }
 
-  #search:focus {
-    background-color: transparent !important;
-    border-color: #ced4da !important; 
+  #search {
+    transition: height 0.3s ease-in-out; /* Set the desired animation duration and easing function */
+    height: 0;
+    overflow: hidden;
   }
 
-  #search:focus::placeholder {
-    color: transparent;
-  }
+.modal:nth-of-type(even) {
+    z-index: 1052 !important;
+}
+.modal-backdrop.show:nth-of-type(even) {
+    z-index: 1051 !important;
+}

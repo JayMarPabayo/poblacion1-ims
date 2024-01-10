@@ -12,6 +12,7 @@
                     <th scope="col">Role</th>
                     <th scope="col">Created</th>
                     <th scope="col">Last Log-on</th>
+                    <th class="text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,6 +24,15 @@
                         <td><?= e($user['user_role']); ?></td>
                         <td><?= e($user['user_created_at']); ?></td>
                         <td><?= e($user['user_last_logon']); ?></td>
+                        <td class="justify-content-center gap-2 row">
+                            <button type="button" class="btn btn-dark btn-sm col">
+                                <i class="bi bi-pencil fs-6"></i> Edit
+                            </button>
+
+                            <button type="button" class="btn btn-light btn-sm col">
+                                <i class="bi bi-trash fs-6"></i> Remove
+                            </button>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -32,27 +42,18 @@
     <div class="modal fade" id="add-user-modal">
         <div class="modal-dialog">
             <div class="modal-content px-3">
-                <form method="POST">
+                <form method="POST" novalidate>
                     <?php include $this->resolve('partials/_csrf.php'); ?>
                     <header class="modal-header">
                         <h5>Add User</h5>
                     </header>
                     <section class="modal-body py-4">
                         <!-- First name -->
-                        <div class="form-group-sm row p-1">
+                        <div class="form-group-sm row py-1">
                             <label for="first-name" class="col-sm-1 col-form-label"><i class="bi bi-person-fill fs-5"></i></label>
                             <div class="col-sm">
-                                <input type="text" name="first-name" id="first-name" placeholder="First name" class="form-control" value="<?= $oldFormData['first-name'] ?? ''; ?>">
+                                <input type="text" name="first-name" id="first-name" placeholder="First name" class="form-control" value="<?= $oldFormData['first-name'] ?? ''; ?>" required>
                             </div>
-                            <!-- Error Display -->
-                            <?php if (array_key_exists('first-name', $errors)) : ?>
-                                <div class="text-danger ps-5" style="font-size: 0.8rem;">
-                                    <i class="bi bi-exclamation-circle-fill"></i>
-                                    <span class="ms-1">
-                                        <?php echo e($errors['first-name'][0]); ?>
-                                    </span>
-                                </div>
-                            <?php endif; ?>
                         </div>
                         <!-- Middle name -->
                         <div class="form-group-sm row py-1">
@@ -60,31 +61,13 @@
                             <div class="col-sm">
                                 <input type="text" name="middle-name" id="middle-name" placeholder="Middle name" class="form-control" value="<?= $oldFormData['middle-name'] ?? ''; ?>">
                             </div>
-                            <!-- Error Display -->
-                            <?php if (array_key_exists('middle-name', $errors)) : ?>
-                                <div class="text-danger ps-5" style="font-size: 0.8rem;">
-                                    <i class="bi bi-exclamation-circle-fill"></i>
-                                    <span class="ms-1">
-                                        <?php echo e($errors['middle-name'][0]); ?>
-                                    </span>
-                                </div>
-                            <?php endif; ?>
                         </div>
                         <!-- Last name -->
                         <div class="form-group-sm row py-1">
                             <label for="last-name" class="col-sm-1 col-form-label"><i class="bi bi-person-fill fs-5"></i></label>
                             <div class="col-sm">
-                                <input type="text" name="last-name" id="last-name" placeholder="Last name" class="form-control" value="<?= $oldFormData['last-name'] ?? ''; ?>">
+                                <input type="text" name="last-name" id="last-name" placeholder="Last name" class="form-control" value="<?= $oldFormData['last-name'] ?? ''; ?>" required>
                             </div>
-                            <!-- Error Display -->
-                            <?php if (array_key_exists('last-name', $errors)) : ?>
-                                <div class="text-danger ps-5" style="font-size: 0.8rem;">
-                                    <i class="bi bi-exclamation-circle-fill"></i>
-                                    <span class="ms-1">
-                                        <?php echo e($errors['last-name'][0]); ?>
-                                    </span>
-                                </div>
-                            <?php endif; ?>
                         </div>
                         <!-- Email -->
                         <div class="form-group-sm row py-1">
@@ -92,15 +75,6 @@
                             <div class="col-sm">
                                 <input type="email" name="email" id="email" placeholder="Email" class="form-control" value="<?= $oldFormData['email'] ?? ''; ?>">
                             </div>
-                            <!-- Error Display -->
-                            <?php if (array_key_exists('email', $errors)) : ?>
-                                <div class="text-danger ps-5" style="font-size: 0.8rem;">
-                                    <i class="bi bi-exclamation-circle-fill"></i>
-                                    <span class="ms-1">
-                                        <?php echo e($errors['email'][0]); ?>
-                                    </span>
-                                </div>
-                            <?php endif; ?>
                         </div>
                         <!-- Role -->
                         <div class="form-group-sm row py-1">
@@ -112,36 +86,19 @@
                                 </select>
 
                             </div>
-                            <!-- Error Display -->
-                            <?php if (array_key_exists('user-role', $errors)) : ?>
-                                <div class="text-danger ps-5" style=" font-size: 0.8rem;">
-                                    <i class="bi bi-exclamation-circle-fill"></i>
-                                    <span class="ms-1">
-                                        <?php echo e($errors['user-role'][0]); ?>
-                                    </span>
-                                </div>
-                            <?php endif; ?>
+
                         </div>
                         <!-- Username & Password -->
                         <hr class="hr-blurry">
                         <div class="form-group-sm row py-1">
                             <label for="user-username" class="col-sm-1 col-form-label"><i class="bi bi-person-badge-fill fs-5"></i></label>
                             <div class="col-sm">
-                                <input type="text" name="user-username" id="user-username" placeholder="Username" class="form-control" value="<?= $oldFormData['user-username'] ?? ''; ?>">
+                                <input type="text" name="user-username" id="user-username" placeholder="Username" class="form-control" value="<?= $oldFormData['user-username'] ?? ''; ?>" required>
                             </div>
                             <label for="user-password" class="col-sm-1 col-form-label"><i class="bi bi-person-fill-lock fs-5"></i></label>
                             <div class="col-sm">
-                                <input type="password" name="user-password" id="user-password" placeholder="Password" class="form-control">
+                                <input type="password" name="user-password" id="user-password" placeholder="Password" class="form-control" required>
                             </div>
-                            <!-- Error Display -->
-                            <?php if (array_key_exists('user-username', $errors) || array_key_exists('user-password', $errors)) : ?>
-                                <div class="text-danger ps-5" style="font-size: 0.8rem;">
-                                    <i class="bi bi-exclamation-circle-fill"></i>
-                                    <span class="ms-1">
-                                        <?php echo e($errors['user-username'][0]) ? e($errors['user-username'][0]) : e($errors['user-password'][0]); ?>
-                                    </span>
-                                </div>
-                            <?php endif; ?>
                         </div>
                     </section>
                     <footer class="modal-footer">

@@ -15,9 +15,18 @@ class ResidentsController
 
     public function residentsView()
     {
-        $residents = $this->residentsService->getAllResidents();
+        $page = $_GET['page'] ?? 1;
+        $page = (int) $page;
+        $length = 10;
+        $offset = ($page - 1) * $length;
+
+        $residents = $this->residentsService->getAllResidents(
+            $length,
+            $offset
+        );
         echo $this->view->render("/residents.php", [
-            'residents' => $residents
+            'residents' => $residents,
+            'path' => parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
         ]);
     }
 

@@ -65,9 +65,13 @@ class ResidentsService
         );
     }
 
-    public function getAllResidents()
+    public function getAllResidents(int $length, int $offset)
     {
-        $residents = $this->db->query("SELECT * FROM tbl_residents")->findAll();
+        $search = addcslashes($_GET['search'] ?? "", '%_');
+        $residents = $this->db->query("SELECT * FROM tbl_residents LEFT JOIN tbl_purok ON resident_purok = purok_id WHERE resident_first_name LIKE :search OR resident_last_name LIKE :search 
+        OR resident_middle_name LIKE :search LIMIT {$length} OFFSET {$offset}", [
+            'search' => "%{$search}%"
+        ])->findAll();
 
         return $residents;
     }
