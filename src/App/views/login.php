@@ -30,20 +30,19 @@
             </div>
             <div class="col p-0 w-100">
                 <div class="container w-75 pt-5 px-4 pb-10 shadow-lg rounded-3 float-end bg-light bg-opacity-50">
-                    <form id="login-form" class="d-flex flex-column gap-3" enctype="multipart/form-data">
+                    <form id="login-form" class="d-flex flex-column gap-3" method="POST" novalidate>
                         <i class="bi bi-person-square text-center fs-1"></i>
                         <h5 class="text-center text-dark-emphasis">Members Log-in</h5>
                         <div class="form-floating">
-                            <input type="text" name="username" id="username" placeholder="Username" class="form-control" required>
+                            <input type="text" name="user-username" id="username" placeholder="Username" class="form-control" value="<?= $oldFormData['user-username'] ?? ''; ?>" required>
                             <label for="username" class="form-label">Username</label>
                         </div>
 
                         <div class="input-group">
                             <div class="form-floating">
-                                <input type="password" name="password" id="password" placeholder="Password" class="form-control" required>
+                                <input type="password" name="user-password" id="password" placeholder="Password" class="form-control" value="<?= $oldFormData['user-password'] ?? ''; ?>" required>
                                 <label for="password" class="form-label">Password</label>
                             </div>
-
                             <div class="input-group-append">
                                 <span class="input-group-text h-100 rounded-0 rounded-end-1 cursor-pointer">
                                     <i class="bi bi-eye" id="togglePassword"></i>
@@ -57,7 +56,6 @@
                                 <input type="checkbox" name="remember-me" id="remember-me" class="form-check-input">
                                 <label for="remember-me" class="form-check-label">Remember me</label>
                             </div>
-
                             <a href="#" class="btn-link">Forgot password?</a>
                         </div>
                     </form>
