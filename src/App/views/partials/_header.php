@@ -22,29 +22,31 @@
             <button type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarMenu">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a href="/" class="nav-link active" aria-current="page">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/residents" class="nav-link">Residents</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Services
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Barangay Certificate of Residency</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/users" class="nav-link">Users</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" onclick="confirmLogout()">Log off</a>
-                    </li>
-                </ul>
-            </div>
+            <?php if (isset($_SESSION['user'])) : ?>
+                <div class="collapse navbar-collapse" id="navbarMenu">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a href="/" class="nav-link active" aria-current="page">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/residents" class="nav-link">Residents</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Services
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Barangay Certificate of Residency</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/users" class="nav-link">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/logout" class="nav-link" onclick="confirmLogout()">Log off</a>
+                        </li>
+                    </ul>
+                </div>
+            <?php endif; ?>
         </div>
     </nav>

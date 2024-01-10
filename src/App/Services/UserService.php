@@ -43,6 +43,10 @@ class UserService
                 'role' => $formData['user-role']
             ]
         );
+
+        // -- If I want to automatically log-in
+        // session_regenerate_id();
+        // $_SESSION['user'] = $this->db->id();
     }
 
     public function login(array $formData)

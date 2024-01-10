@@ -40,6 +40,7 @@
         <div class="modal-dialog">
             <div class="modal-content px-4">
                 <form method="POST">
+                    <?php include $this->resolve('partials/_csrf.php'); ?>
                     <header class="modal-header">
                         <h5>Add User</h5>
                     </header>
