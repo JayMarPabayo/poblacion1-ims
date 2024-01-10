@@ -5,16 +5,26 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use Framework\TemplateEngine;
-use App\Config\Paths;
+use App\Services\{ValidatorService, ResidentsService};
 
 class ResidentsController
 {
-    public function __construct(private TemplateEngine $view)
+    public function __construct(private TemplateEngine $view, private ValidatorService $validatorService, private ResidentsService $residentsService)
     {
     }
 
-    public function residents()
+    public function residentsView()
     {
-        echo $this->view->render("/residents.php");
+        $residents = $this->residentsService->getAllResidents();
+        echo $this->view->render("/residents.php", [
+            'residents' => $residents
+        ]);
+    }
+
+    public function create()
+    {
+        $this->residentsService->create($_POST);
+
+        redirectTo('/residents');
     }
 }

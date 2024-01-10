@@ -10,7 +10,7 @@
                         <i class="h3 bi bi-people-fill"></i>
                     </header>
                     <div class="card-text text-end">
-                        Total Population: <strong>40,419</strong>
+                        Total Population: <strong>8,464</strong>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                         <i class="h3 bi bi-person-vcard-fill"></i>
                     </header>
                     <div class="card-text text-end">
-                        Total Voters: <strong>25,495</strong>
+                        Total Voters: <strong>5,410</strong>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                         <i class="h3 bi bi-person-vcard"></i>
                     </header>
                     <div class="card-text text-end">
-                        Total Non-voters: <strong>14,924</strong>
+                        Total Non-voters: <strong>3,054</strong>
                     </div>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                         <i class="h3 bi bi-person-wheelchair"></i>
                     </header>
                     <div class="card-text text-end">
-                        Total PWD: <strong>2,531</strong>
+                        Total PWD: <strong>0</strong>
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                         <i class="h3 bi bi-person-bounding-box"></i>
                     </header>
                     <div class="card-text text-end">
-                        Total Senior Citizen: <strong>1,660</strong>
+                        Total Senior Citizen: <strong>0</strong>
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                         <i class="h3 bi bi-building-fill"></i>
                     </header>
                     <div class="card-text text-end">
-                        Total Establishments: <strong>...</strong>
+                        Total Establishments: <strong>0</strong>
                     </div>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                         <i class="h3 bi bi-flag-fill"></i>
                     </header>
                     <div class="card-text text-end">
-                        Total Blotters: <strong>...</strong>
+                        Total Blotters: <strong>0</strong>
                     </div>
                 </div>
             </div>
@@ -101,7 +101,7 @@
                         <i class="h3 bi bi-piggy-bank-fill"></i>
                     </header>
                     <div class="card-text text-end">
-                        Total Revenue: <strong>...</strong>
+                        Total Revenue: <strong>0</strong>
                     </div>
                 </div>
             </div>

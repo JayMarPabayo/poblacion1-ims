@@ -6,14 +6,14 @@ namespace App\Controllers;
 
 use Framework\TemplateEngine;
 
-class HomeController
+class TransactionController
 {
     public function __construct(private TemplateEngine $view)
     {
     }
 
-    public function home()
+    public function createView()
     {
-        echo $this->view->render("/index.php");
+        echo $this->view->render("transactions/create.php");
     }
 }

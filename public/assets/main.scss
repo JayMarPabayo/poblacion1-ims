@@ -56,4 +56,12 @@ body {
     }
     
   }
-  
+
+  #search:focus {
+    background-color: transparent !important;
+    border-color: #ced4da !important; 
+  }
+
+  #search:focus::placeholder {
+    color: transparent;
+  }

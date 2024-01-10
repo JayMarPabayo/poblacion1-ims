@@ -72,4 +72,11 @@ class UserService
 
         session_regenerate_id();
     }
+
+    public function getAllUsers()
+    {
+        $users = $this->db->query("SELECT * FROM tbl_users")->findAll();
+
+        return $users;
+    }
 }

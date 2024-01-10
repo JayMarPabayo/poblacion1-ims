@@ -15,30 +15,23 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>mariasantos</td>
-                    <td>Maria Santos</td>
-                    <td>mariasantos@gmail.com</td>
-                    <td>Administrator</td>
-                    <td>January 9, 2023 | 10:24 AM</td>
-                    <td>January 9, 2023 | 10:24 AM</td>
-                </tr>
-                <tr>
-
-                    <td>juandelacruz</td>
-                    <td>Juan Dela Cruz</td>
-                    <td>juandelacruz@gmail.com</td>
-                    <td>Administrator</td>
-                    <td>January 10, 2023 | 10:24 AM</td>
-                    <td>January 10, 2023 | 10:24 AM</td>
-                </tr>
+                <?php foreach ($users as $user) : ?>
+                    <tr>
+                        <td><?= e($user['user_username']); ?></td>
+                        <td><?= e($user['user_first_name'] . ' ' . $user['user_middle_name'] . ' ' . $user['user_last_name']) ?></td>
+                        <td><?= e($user['user_email']); ?></td>
+                        <td><?= e($user['user_role']); ?></td>
+                        <td><?= e($user['user_created_at']); ?></td>
+                        <td><?= e($user['user_last_logon']); ?></td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>
     <button class="btn fixed-btn" data-bs-toggle="modal" data-bs-target="#add-user-modal" title="Add New user"><i class="bi bi-plus-circle-fill fs-1"></i></button>
     <div class="modal fade" id="add-user-modal">
         <div class="modal-dialog">
-            <div class="modal-content px-4">
+            <div class="modal-content px-3">
                 <form method="POST">
                     <?php include $this->resolve('partials/_csrf.php'); ?>
                     <header class="modal-header">
@@ -113,7 +106,7 @@
                         <div class="form-group-sm row py-1">
                             <label for="last-name" class="col-sm-1 col-form-label"><i class="bi bi-person-lines-fill fs-5"></i></label>
                             <div class="col-sm">
-                                <select id="user-role" name="user-role" id="user-role" class="form-select">
+                                <select id="user-role" name="user-role" class="form-select">
                                     <option value="Administrator" <?= isset($oldFormData['user-role']) && $oldFormData['user-role'] === 'Administrator' ? 'selected' : ''; ?>>Administrator</option>
                                     <option value="Employee" <?= isset($oldFormData['user-role']) && $oldFormData['user-role'] === 'Employee' ? 'selected' : ''; ?>>Employee</option>
                                 </select>

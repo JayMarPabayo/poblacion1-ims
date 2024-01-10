@@ -22,3 +22,11 @@ function redirectTo(string $path)
     http_response_code(302);
     exit;
 }
+
+function calculateAge($birthDate)
+{
+    $birthDate = new DateTime($birthDate);
+    $currentDate = new DateTime();
+    $ageInterval = $currentDate->diff($birthDate);
+    return $ageInterval->y;
+}

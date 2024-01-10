@@ -16,7 +16,10 @@ class AuthController
 
     public function registerView()
     {
-        echo $this->view->render("users.php");
+        $users = $this->userService->getAllUsers();
+        echo $this->view->render("users.php", [
+            'users' => $users
+        ]);
     }
 
     public function register()
