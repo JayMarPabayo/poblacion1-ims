@@ -33,7 +33,7 @@ class Database
 
     public function count()
     {
-        return $this->stmt->fetchColumn();
+        return $this->stmt->rowCount();
     }
 
     public function find()

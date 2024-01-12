@@ -17,15 +17,39 @@ class ResidentsController
     {
         $page = $_GET['page'] ?? 1;
         $page = (int) $page;
-        $length = 10;
+        $length = 2;
         $offset = ($page - 1) * $length;
+        $search = $_GET['search'] ?? null;
 
-        $residents = $this->residentsService->getAllResidents(
+        [$residents, $count] = $this->residentsService->getAllResidents(
             $length,
             $offset
         );
+
+        $lastPage = ceil($count / $length);
+        $pages = $lastPage ? range(1, $lastPage) : [];
+        $pageLinks = array_map(
+            fn ($pageNum) => http_build_query([
+                'page' => $pageNum,
+                'search' => $search
+            ]),
+            $pages
+        );
+
         echo $this->view->render("/residents.php", [
             'residents' => $residents,
+            'currentPage' => $page,
+            'lastPage' => $lastPage,
+            'previousPageQuery' => http_build_query([
+                'page' => $page - 1,
+                'search' => $search
+            ]),
+            'nextPageQuery' => http_build_query([
+                'page' => $page + 1,
+                'search' => $search
+            ]),
+            'pageLinks' => $pageLinks,
+            'search' => $search,
             'path' => parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
         ]);
     }

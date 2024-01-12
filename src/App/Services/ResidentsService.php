@@ -68,11 +68,13 @@ class ResidentsService
     public function getAllResidents(int $length, int $offset)
     {
         $search = addcslashes($_GET['search'] ?? "", '%_');
+        $parameters = ['search' => "%{$search}%"];
         $residents = $this->db->query("SELECT * FROM tbl_residents LEFT JOIN tbl_purok ON resident_purok = purok_id WHERE resident_first_name LIKE :search OR resident_last_name LIKE :search 
-        OR resident_middle_name LIKE :search LIMIT {$length} OFFSET {$offset}", [
-            'search' => "%{$search}%"
-        ])->findAll();
+        OR resident_middle_name LIKE :search LIMIT {$length} OFFSET {$offset}", $parameters)->findAll();
 
-        return $residents;
+        $residentsCount = $this->db->query("SELECT * FROM tbl_residents WHERE resident_first_name LIKE :search OR resident_last_name LIKE :search 
+        OR resident_middle_name LIKE :search", $parameters)->count();
+
+        return [$residents, $residentsCount];
     }
 }

@@ -28,8 +28,6 @@
                         <li class="nav-item">
                             <a href="/" class="nav-link <?= $path === '/' ? 'active' : ''; ?>" aria-current="page">Dashboard</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="/residents" class="nav-link <?= $path === '/residents' ? 'active' : ''; ?>">Residents</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -39,6 +37,9 @@
                                 <li><a class="dropdown-item" href="#">Barangay Certificate of Residency</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a href="/residents" class="nav-link <?= $path === '/residents' ? 'active' : ''; ?>">Residents</a>
+
                         <li class="nav-item">
                             <a href="/users" class="nav-link <?= $path === '/users' ? 'active' : ''; ?>">Users</a>
                         </li>

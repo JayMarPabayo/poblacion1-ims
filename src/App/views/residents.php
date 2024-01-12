@@ -46,6 +46,28 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <!-- PREVIOUS PAGE -->
+                <li class="page-item me-1">
+                    <a class="btn btn-secondary <?= ($currentPage > 1) ? '' : 'disabled'; ?>" href="/residents?<?= e($previousPageQuery); ?>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <?php foreach ($pageLinks as $page => $query) : ?>
+                    <li class="page-item mx-1">
+                        <a class="btn <?= ($page + 1) === $currentPage ? 'btn-dark' : 'btn-outline-dark'; ?>" href="/residents?<?= e($query); ?>">
+                            <?= $page + 1; ?>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+                <li class="page-item ms-1">
+                    <a class="btn btn-secondary <?= ($currentPage < $lastPage) ? '' : 'disabled'; ?>" href="/residents?<?= e($nextPageQuery); ?>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
     <button class="btn fixed-btn" data-bs-toggle="modal" data-bs-target="#addResident" title="Add New Resident"><i class="bi bi-plus-circle-fill fs-1"></i></button>
     <div class="modal modal-lg fade" id="addResident">
