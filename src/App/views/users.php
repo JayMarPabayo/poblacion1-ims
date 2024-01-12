@@ -25,12 +25,12 @@
                         <td><?= e($user['user_created_at']); ?></td>
                         <td><?= e($user['user_last_logon']); ?></td>
                         <td class="justify-content-center gap-2 row">
-                            <button type="button" class="btn btn-dark btn-sm col">
-                                <i class="bi bi-pencil fs-6"></i> Edit
+                            <button type="button" class="btn btn-dark btn-sm col d-flex align-items-center justify-content-evenly" style="font-size: 0.8rem;">
+                                <i class="bi bi-pencil"></i> <span>Edit</span>
                             </button>
 
-                            <button type="button" class="btn btn-light btn-sm col">
-                                <i class="bi bi-trash fs-6"></i> Remove
+                            <button type="button" class="btn btn-light btn-sm col d-flex align-items-center justify-content-evenly" style="font-size: 0.8rem;">
+                                <i class="bi bi-trash"></i> <span>Remove</span>
                             </button>
                         </td>
                     </tr>

@@ -10,7 +10,7 @@
                 <input type="text" name="search" id="search" placeholder="Search" class="form-control form-control-sm ps-3 border-dark-subtle border-bottom border-2 border-top-0 border-start-0 border-end-0" value="<?= $_GET['search'] ?? ''; ?>">
             </div>
         </form>
-        <table class="table">
+        <table class="table" style="font-size: 0.85rem;">
             <thead>
                 <tr>
                     <th scope="col">Name</th>
@@ -18,6 +18,8 @@
                     <th scope="col">Gender</th>
                     <th scope="col">Age</th>
                     <th scope="col">Contact</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Religion</th>
                     <th scope="col">Voter</th>
                     <th scope="col">Civil Status</th>
                     <th class="text-center">Action</th>
@@ -26,20 +28,22 @@
             <tbody>
                 <?php foreach ($residents as $resident) : ?>
                     <tr>
-                        <td><?= e($resident['resident_first_name'] . ' ' . $resident['resident_middle_name'] . ' ' . $resident['resident_last_name']) ?></td>
+                        <td><?= e($resident['resident_first_name'] . ' ' . $resident['resident_middle_name'] . ' ' . $resident['resident_last_name'] . ' ' . $resident['resident_suffix']) ?></td>
                         <td><?= e($resident['purok_name']); ?></td>
                         <td><?= e($resident['resident_gender']); ?></td>
                         <td><?= calculateAge(e($resident['resident_birthdate'])); ?></td>
                         <td><?= e($resident['resident_contact']); ?></td>
+                        <td><?= e($resident['resident_email']); ?></td>
+                        <td><?= e($resident['resident_religion']); ?></td>
                         <td><?= convertToYesNo(e($resident['resident_voter_status'])); ?></td>
                         <td><?= e($resident['resident_civil_status']); ?></td>
                         <td class="justify-content-center gap-2 row">
-                            <button type="button" class="btn btn-dark btn-sm col-4">
-                                <i class="bi bi-pencil fs-6"></i> Edit
+                            <button type="button" class="btn btn-dark btn-sm col d-flex align-items-center justify-content-evenly" style="font-size: 0.8rem;">
+                                <i class="bi bi-pencil"></i> <span>Edit</span>
                             </button>
 
-                            <button type="button" class="btn btn-light btn-sm col-4">
-                                <i class="bi bi-trash fs-6"></i> Remove
+                            <button type="button" class="btn btn-light btn-sm col d-flex align-items-center justify-content-evenly" style="font-size: 0.8rem;">
+                                <i class="bi bi-trash"></i> <span>Remove</span>
                             </button>
                         </td>
                     </tr>
