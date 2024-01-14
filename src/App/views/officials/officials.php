@@ -1,9 +1,9 @@
 <?php include $this->resolve("partials/_header.php") ?>
 
 <main class="container-fluid flex-grow-1 py-2 login-main">
-    <div class="row mt-2 pb-2 px-5 mx-5 gy-3 shadow-lg rounded-3 bg-light bg-opacity-50">
-        <div class="row py-4">
-            <div class="col px-0">
+    <div class="row mt-2 pb-2 px-5 mx-5 gy-3 shadow-lg rounded-3 bg-light bg-opacity-50 position-relative">
+        <div class="row py-4 mt-4">
+            <div class="col px-0 position-relative">
                 <h5 class="p-0">Barangay Officials</h5>
                 <table class="table mt-3" style="font-size: 0.85rem;">
                     <thead>
@@ -19,25 +19,26 @@
                                 <td><?= e($official['resident_first_name'] . ' ' . $official['resident_middle_name'] . ' ' . $official['resident_last_name']) ?></td>
                                 <td><?= e($official['official_position']); ?></td>
                                 <td class="justify-content-center gap-2 row">
-                                    <button type="button" class="btn btn-dark btn-sm col-5 d-flex align-items-center justify-content-evenly" style="font-size: 0.8rem;">
+                                    <a href="/officials/<?= e($official['official_id']);  ?>" class="btn btn-dark btn-sm col-5 d-flex align-items-center justify-content-evenly" style="font-size: 0.8rem;">
                                         <i class="bi bi-pencil"></i> <span>Edit</span>
-                                    </button>
+                                    </a>
 
-                                    <button type="button" class="btn btn-light btn-sm col-5 d-flex align-items-center justify-content-evenly" style="font-size: 0.8rem;">
+                                    <a href="a" class="btn btn-light btn-sm col-5 d-flex align-items-center justify-content-evenly" style="font-size: 0.8rem;">
                                         <i class="bi bi-trash"></i> <span>Remove</span>
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                <?php include $this->resolve("partials/_alerts.php") ?>
             </div>
             <!-- Vertical Line -->
             <div class="d-flex justify-content-center col-1 opacity-50">
                 <div class="vr"></div>
             </div>
             <div class="col px-0">
-                <h5 class="p-0">Add Official</h5>
+                <h5 class="p-0">Add New Official</h5>
                 <!-- Resident -->
                 <form method="POST" id="addOfficialForm" novalidate>
                     <?php include $this->resolve('partials/_csrf.php'); ?>
@@ -99,7 +100,9 @@
                         <i class="bi bi-floppy2"></i><span>Submit</span>
                     </button>
                 </div>
+
             </div>
+
         </div>
     </div>
 
@@ -112,13 +115,12 @@
     function setInputs(residentId, residentName) {
         document.getElementById('resident-id').value = residentId;
         document.getElementById('resident-name').value = residentName;
-        residentNameInput.classList.remove("is-invalid")
+        residentNameInput.classList.remove("is-invalid");
+        document.getElementById("position").focus();
     }
 
 
-    submitAddOfficialBtn.addEventListener("click", e => {
-        e.preventDefault();
-
+    submitAddOfficialBtn.addEventListener("click", () => {
         const formData = new FormData(addOfficialForm);
         formData.forEach((value, key) => {
             console.log(`${key}: ${value}`);

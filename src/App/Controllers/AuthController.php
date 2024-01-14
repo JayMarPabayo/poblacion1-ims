@@ -17,7 +17,7 @@ class AuthController
     public function registerView()
     {
         $users = $this->userService->getAllUsers();
-        echo $this->view->render("users.php", [
+        echo $this->view->render("users/users.php", [
             'users' => $users,
             'path' => parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
         ]);
@@ -33,7 +33,7 @@ class AuthController
 
     public function loginView()
     {
-        echo $this->view->render("login.php", [
+        echo $this->view->render("users/login.php", [
             'path' => parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
         ]);
     }
@@ -49,5 +49,31 @@ class AuthController
     {
         $this->userService->logout();
         redirectTo('/login');
+    }
+
+    public function editView(array $parameters)
+    {
+        $user = $this->userService->getUser($parameters['user']);
+
+        if (!$user) {
+            redirectTo('/');
+        }
+
+        echo $this->view->render('users/update.php', [
+            'user' => $user,
+            'path' => parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
+        ]);
+    }
+
+    public function edit(array $parameters)
+    {
+        $user = $this->userService->getUser($parameters['user']);
+
+        if (!$user) {
+            redirectTo('/');
+        }
+
+        $this->userService->update($_POST, $user['user_id']);
+        redirectTo('/users');
     }
 }

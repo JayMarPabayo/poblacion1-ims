@@ -91,8 +91,6 @@ class ResidentsService
 
     public function update(array $formData, int $id)
     {
-        $currentDate = new DateTime();
-        $formattedDate = (string) $currentDate->format('Y-m-d H:i:s');
 
         $this->db->query(
             "UPDATE tbl_residents SET resident_purok = :purok,
@@ -124,5 +122,7 @@ class ResidentsService
                 'religion' => $formData['religion']
             ]
         );
+
+        $_SESSION['update_message'] = "Updated Successfully";
     }
 }

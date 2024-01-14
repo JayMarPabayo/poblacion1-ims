@@ -36,7 +36,7 @@ class ResidentsController
             $pages
         );
 
-        echo $this->view->render("/residents.php", [
+        echo $this->view->render("residents/residents.php", [
             'residents' => $residents,
             'currentPage' => $page,
             'lastPage' => $lastPage,
@@ -69,7 +69,7 @@ class ResidentsController
             redirectTo('/');
         }
 
-        echo $this->view->render('residents-update.php', [
+        echo $this->view->render('residents/update.php', [
             'resident' => $resident,
             'path' => parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
         ]);

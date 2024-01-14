@@ -43,10 +43,6 @@ class UserService
                 'role' => $formData['user-role']
             ]
         );
-
-        // -- If I want to automatically log-in
-        // session_regenerate_id();
-        // $_SESSION['user'] = $this->db->id();
     }
 
     public function login(array $formData)
@@ -61,7 +57,6 @@ class UserService
             throw new ValidationException(['password' => ['Invalid credentials']]);
         }
 
-        // Update last logon timestamp
         $this->db->query("UPDATE tbl_users SET user_last_logon = CURRENT_TIMESTAMP WHERE user_id = :userId", [
             'userId' => $user['user_id']
         ]);
@@ -85,5 +80,45 @@ class UserService
         $users = $this->db->query("SELECT * FROM tbl_users")->findAll();
 
         return $users;
+    }
+
+
+    public function getUser(string $id)
+    {
+        return $this->db->query(
+            "SELECT * FROM tbl_users WHERE user_id = :id",
+            [
+                'id' => $id,
+            ]
+        )->find();
+    }
+
+    public function update(array $formData, int $id)
+    {
+
+        $password = password_hash($formData['user-password'], PASSWORD_BCRYPT, ['cost' => 12]);
+
+        $this->db->query(
+            "UPDATE tbl_users SET user_first_name = :firstname,
+            user_middle_name = :middlename,
+            user_last_name = :lastname,
+            user_email = :email,
+            user_username = :username,
+            user_password = :password,
+            user_role = :role,
+            user_updated_at = now() WHERE user_id = :id",
+            [
+                'id' => $id,
+                'firstname' => $formData['first-name'],
+                'middlename' => $formData['middle-name'],
+                'lastname' => $formData['last-name'],
+                'email' => $formData['email'],
+                'username' => $formData['user-username'],
+                'password' => $password,
+                'role' => $formData['user-role']
+            ]
+        );
+
+        $_SESSION['update_message'] = "Updated Successfully";
     }
 }

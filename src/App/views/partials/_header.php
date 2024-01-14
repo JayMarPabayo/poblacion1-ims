@@ -15,7 +15,7 @@
 <body>
     <nav class="navbar navbar-expand-sm navbar-light bg-light border-bottom">
         <div class="container">
-            <a href="#" class="navbar-brand h10">
+            <a href="/" class="navbar-brand h10">
                 <img src="/assets/img/favicon.png" alt="favicon" width="28" height="28" class="d-inline-block align-text-top">
                 Brgy Poblacion-1 IMS
             </a>

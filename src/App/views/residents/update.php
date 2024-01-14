@@ -153,6 +153,6 @@
     </div>
 </main>
 <script>
-    document.getElementById("first-name").focus();
+    document.getElementById("purok").focus();
 </script>
 <?php include $this->resolve("partials/_footer.php"); ?>

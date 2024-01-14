@@ -1,7 +1,7 @@
 <?php include $this->resolve("partials/_header.php") ?>
 
 <main class="container-fluid flex-grow-1 py-2 login-main">
-    <div class="row mt-2 pb-2 px-5 mx-5 gy-3 shadow-lg rounded-3 bg-light bg-opacity-50">
+    <div class="row mt-2 pb-2 px-5 mx-5 gy-3 shadow-lg rounded-3 bg-light bg-opacity-50 position-relative">
         <h4 class="p-0">Residents</h4>
         <!-- Search -->
         <form id="search-form" class="form-group-sm py-1 col-4 row align-items-center" method="GET">
@@ -50,7 +50,7 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
-
+        <?php include $this->resolve("partials/_alerts.php") ?>
     </div>
     <button class="btn fixed-btn" data-bs-toggle="modal" data-bs-target="#addResident" title="Add New Resident"><i class="bi bi-plus-circle-fill fs-1"></i></button>
 
@@ -209,5 +209,6 @@
             </div>
         </div>
     </div>
+
 </main>
 <?php include $this->resolve("partials/_footer.php"); ?>
