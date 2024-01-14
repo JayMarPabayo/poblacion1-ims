@@ -5,9 +5,9 @@
         <h4 class="p-0">Residents</h4>
         <!-- Search -->
         <form id="search-form" class="form-group-sm py-1 col-4 row align-items-center" method="GET">
-            <label for="search" class="col-sm-1 col-form-label"><i class="bi bi-search fs-5"></i></label>
+            <label for="search" class="col-sm-1"><i class="bi bi-search fs-6"></i></label>
             <div class="col-sm">
-                <input type="text" name="search" id="search" placeholder="Search" class="form-control form-control-sm ps-3 border-dark-subtle border-bottom border-2 border-top-0 border-start-0 border-end-0" value="<?= $_GET['search'] ?? ''; ?>">
+                <input type="search" name="search" id="search" placeholder="Search" class="form-control form-control-sm ps-3 bg-transparent rounded-0 border-dark-subtle border-bottom border-2 border-top-0 border-start-0 border-end-0" value="<?= $_GET['search'] ?? ''; ?>">
             </div>
         </form>
         <table class="table" style="font-size: 0.85rem;">
@@ -50,30 +50,11 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <!-- PREVIOUS PAGE -->
-                <li class="page-item me-1">
-                    <a class="btn btn-secondary <?= ($currentPage > 1) ? '' : 'disabled'; ?>" href="/residents?<?= e($previousPageQuery); ?>" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <?php foreach ($pageLinks as $page => $query) : ?>
-                    <li class="page-item mx-1">
-                        <a class="btn <?= ($page + 1) === $currentPage ? 'btn-dark' : 'btn-outline-dark'; ?>" href="/residents?<?= e($query); ?>">
-                            <?= $page + 1; ?>
-                        </a>
-                    </li>
-                <?php endforeach; ?>
-                <li class="page-item ms-1">
-                    <a class="btn btn-secondary <?= ($currentPage < $lastPage) ? '' : 'disabled'; ?>" href="/residents?<?= e($nextPageQuery); ?>" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+
     </div>
     <button class="btn fixed-btn" data-bs-toggle="modal" data-bs-target="#addResident" title="Add New Resident"><i class="bi bi-plus-circle-fill fs-1"></i></button>
+
+    <!-- ADD RESIDENT MODAL -->
     <div class="modal modal-lg fade" id="addResident">
         <div class="modal-dialog">
             <div class="modal-content px-3">

@@ -17,7 +17,7 @@ class ResidentsController
     {
         $page = $_GET['page'] ?? 1;
         $page = (int) $page;
-        $length = 5;
+        $length = 10;
         $offset = ($page - 1) * $length;
         $search = $_GET['search'] ?? null;
 

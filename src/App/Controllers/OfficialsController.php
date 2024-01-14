@@ -17,10 +17,11 @@ class OfficialsController
     {
         $page = $_GET['page'] ?? 1;
         $page = (int) $page;
-        $length = 10;
+        $length = 5;
         $offset = ($page - 1) * $length;
+        // $search = $_GET['search'] ?? null;
 
-        $residents = $this->residentsService->getAllResidents(
+        [$residents] = $this->residentsService->getAllResidents(
             $length,
             $offset
         );

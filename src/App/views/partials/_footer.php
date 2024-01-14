@@ -6,9 +6,11 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <!-- <script type="module" src="./scripts/main.js"></script> -->
 <script>
-    const allFormsExceptSearch = document.querySelectorAll("form:not(#search-form)");
+    const excludedForms = ["search-form", "addOfficialForm", "search-modal-form"];
+    const queryString = `form:not(${excludedForms.map(id => `#${id}`).join(', ')})`;
+    const allFormsExceptExcluded = document.querySelectorAll(queryString);
 
-    allFormsExceptSearch.forEach(form => {
+    allFormsExceptExcluded.forEach(form => {
         form.addEventListener("submit", (e) => {
             if (!form.checkValidity()) {
                 e.preventDefault();
