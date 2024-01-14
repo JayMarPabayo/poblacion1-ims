@@ -60,4 +60,30 @@ class ResidentsController
 
         redirectTo('/residents');
     }
+
+    public function editView(array $parameters)
+    {
+        $resident = $this->residentsService->getResident($parameters['resident']);
+
+        if (!$resident) {
+            redirectTo('/');
+        }
+
+        echo $this->view->render('residents-update.php', [
+            'resident' => $resident,
+            'path' => parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
+        ]);
+    }
+
+    public function edit(array $parameters)
+    {
+        $resident = $this->residentsService->getResident($parameters['resident']);
+
+        if (!$resident) {
+            redirectTo('/');
+        }
+
+        $this->residentsService->update($_POST, $resident['resident_id']);
+        redirectTo('/residents');
+    }
 }

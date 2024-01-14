@@ -3,7 +3,7 @@
 <main class="container-fluid flex-grow-1 py-2 login-main">
     <div class="row mt-2 pb-2 px-5 mx-5 gy-3 shadow-lg rounded-3 bg-light bg-opacity-50">
         <h4 class="p-0">Users</h4>
-        <table class="table">
+        <table class="table" style="font-size: 0.85rem;">
             <thead>
                 <tr>
                     <th scope="col">Username</th>

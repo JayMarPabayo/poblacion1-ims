@@ -38,13 +38,13 @@
                         <td><?= convertToYesNo(e($resident['resident_voter_status'])); ?></td>
                         <td><?= e($resident['resident_civil_status']); ?></td>
                         <td class="justify-content-center gap-2 row">
-                            <button type="button" class="btn btn-dark btn-sm col d-flex align-items-center justify-content-evenly" style="font-size: 0.8rem;">
+                            <a href="/residents/<?= e($resident['resident_id']);  ?>" class="btn btn-dark btn-sm col d-flex align-items-center justify-content-evenly" style="font-size: 0.8rem;">
                                 <i class="bi bi-pencil"></i> <span>Edit</span>
-                            </button>
+                            </a>
 
-                            <button type="button" class="btn btn-light btn-sm col d-flex align-items-center justify-content-evenly" style="font-size: 0.8rem;">
+                            <a href="#" class="btn btn-light btn-sm col d-flex align-items-center justify-content-evenly" style="font-size: 0.8rem;">
                                 <i class="bi bi-trash"></i> <span>Remove</span>
-                            </button>
+                            </a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

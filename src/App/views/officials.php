@@ -2,7 +2,7 @@
 
 <main class="container-fluid flex-grow-1 py-2 login-main">
     <div class="row mt-2 pb-2 px-5 mx-5 gy-3 shadow-lg rounded-3 bg-light bg-opacity-50">
-        <div class="row pt-5">
+        <div class="row py-4">
             <div class="col px-0">
                 <h5 class="p-0">Barangay Officials</h5>
                 <table class="table mt-3" style="font-size: 0.85rem;">

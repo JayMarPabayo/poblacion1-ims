@@ -18,6 +18,8 @@ function registerRoutes(App $app)
     $app->get('/logout', [AuthController::class, 'logout'])->add(AuthRequiredMiddleware::class);
     $app->get('/residents', [ResidentsController::class, 'residentsView'])->add(AuthRequiredMiddleware::class);
     $app->post('/residents', [ResidentsController::class, 'create'])->add(AuthRequiredMiddleware::class);
+    $app->get('/residents/{resident}', [ResidentsController::class, 'editView'])->add(AuthRequiredMiddleware::class);
+    $app->post('/residents/{resident}', [ResidentsController::class, 'edit'])->add(AuthRequiredMiddleware::class);
     $app->get('/officials', [OfficialsController::class, 'officialsView'])->add(AuthRequiredMiddleware::class);
     $app->post('/officials', [OfficialsController::class, 'create'])->add(AuthRequiredMiddleware::class);
 }
