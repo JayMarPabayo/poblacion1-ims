@@ -28,7 +28,7 @@ class AuthController
         // $this->validatorService->validateRegister($_POST);
         // $this->userService->isEmailTaken($_POST['email']);
         $this->userService->create($_POST);
-        redirectTo('/');
+        redirectTo('/users');
     }
 
     public function loginView()
@@ -53,7 +53,7 @@ class AuthController
 
     public function editView(array $parameters)
     {
-        $user = $this->userService->getUser($parameters['user']);
+        $user = $this->userService->getUser((int) $parameters['user']);
 
         if (!$user) {
             redirectTo('/');
@@ -67,13 +67,21 @@ class AuthController
 
     public function edit(array $parameters)
     {
-        $user = $this->userService->getUser($parameters['user']);
+        $user = $this->userService->getUser((int) $parameters['user']);
 
         if (!$user) {
             redirectTo('/');
         }
 
         $this->userService->update($_POST, $user['user_id']);
+        redirectTo('/users');
+    }
+
+    public function delete(array $parameters)
+    {
+
+        $this->userService->delete((int) $parameters['user']);
+
         redirectTo('/users');
     }
 }

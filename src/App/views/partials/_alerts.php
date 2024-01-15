@@ -22,3 +22,15 @@ endif; ?>
     </div>
 <?php unset($_SESSION['warning_message']);
 endif; ?>
+
+<!-- Delete -->
+<?php if (isset($_SESSION['delete_message'])) : ?>
+    <div role="alert" class="alert alert-info alert-dismissible fade show position-absolute py-2 top-0 end-0 me-2 mt-2 p-0 row justify-content-between align-items-center" style="font-size: 0.85rem; width: fit-content;">
+        <div class="col d-flex">
+            <i class="bi bi-exclamation-circle-fill text-info-emphasis"></i>
+            <span class="ms-2"><?= $_SESSION['delete_message']; ?></span>
+        </div>
+        <input type="button" value="" class="btn-close position-relative py-0 col-1" aria-label="close" data-bs-dismiss="alert">
+    </div>
+<?php unset($_SESSION['delete_message']);
+endif; ?>

@@ -86,4 +86,10 @@ class ResidentsController
         $this->residentsService->update($_POST, $resident['resident_id']);
         redirectTo('/residents');
     }
+
+    public function delete(array $parameters)
+    {
+
+        dd($parameters);
+    }
 }

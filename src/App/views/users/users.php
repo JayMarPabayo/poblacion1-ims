@@ -25,13 +25,18 @@
                         <td><?= e($user['user_created_at']); ?></td>
                         <td><?= e($user['user_last_logon']); ?></td>
                         <td class="justify-content-center gap-2 row">
-                            <a href="/users/<?= e($user['user_id']);  ?>" class="btn btn-dark btn-sm col d-flex align-items-center justify-content-evenly" style="font-size: 0.8rem;">
-                                <i class="bi bi-pencil"></i> <span>Edit</span>
+                            <a href="/users/<?= e($user['user_id']);  ?>" class="btn btn-dark btn-sm col-5 px-0">
+                                <div class="d-flex align-items-center justify-content-evenly px-3" style="font-size: 0.8rem;">
+                                    <i class=" bi bi-pencil"></i> <span>Edit</span>
+                                </div>
                             </a>
-
-                            <a href="#" class="btn btn-light btn-sm col d-flex align-items-center justify-content-evenly" style="font-size: 0.8rem;">
-                                <i class="bi bi-trash"></i> <span>Remove</span>
-                            </a>
+                            <form action="/users/<?= e($user['user_id']); ?>" method="POST" class="col-5 px-0">
+                                <input type="hidden" name="_METHOD" value="DELETE" />
+                                <?php include $this->resolve('partials/_csrf.php'); ?>
+                                <button type="submit" class="btn btn-light btn-sm px-3 d-flex align-items-center justify-content-evenly" style="font-size: 0.8rem;">
+                                    <i class="bi bi-trash"></i> <span>Remove</span>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 <?php endforeach; ?>

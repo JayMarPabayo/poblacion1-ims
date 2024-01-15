@@ -18,10 +18,8 @@ class OfficialsService
     public function officialDuplicateCheck(int $id,)
     {
         $officialCount = $this->db->query(
-            "SELECT COUNT(*) FROM tbl_officials WHERE official_resident = :id",
-            [
-                'id' => $id
-            ]
+            "SELECT * FROM tbl_officials WHERE official_resident = :id",
+            ['id' => $id]
         )->count();
 
         if ($officialCount > 0) {
@@ -74,5 +72,13 @@ class OfficialsService
         );
 
         $_SESSION['update_message'] = "Updated Successfully";
+    }
+
+    public function delete(int $id)
+    {
+
+        $this->db->query("DELETE FROM tbl_officials WHERE official_id = :id", ['id' => $id]);
+
+        $_SESSION['delete_message'] = "Deleted Successfully";
     }
 }

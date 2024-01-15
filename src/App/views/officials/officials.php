@@ -19,13 +19,19 @@
                                 <td><?= e($official['resident_first_name'] . ' ' . $official['resident_middle_name'] . ' ' . $official['resident_last_name']) ?></td>
                                 <td><?= e($official['official_position']); ?></td>
                                 <td class="justify-content-center gap-2 row">
-                                    <a href="/officials/<?= e($official['official_id']);  ?>" class="btn btn-dark btn-sm col-5 d-flex align-items-center justify-content-evenly" style="font-size: 0.8rem;">
-                                        <i class="bi bi-pencil"></i> <span>Edit</span>
+                                    <a href="/officials/<?= e($official['official_id']);  ?>" class="btn btn-dark btn-sm col-5 px-0">
+                                        <div class="d-flex align-items-center justify-content-evenly px-3" style="font-size: 0.8rem;">
+                                            <i class=" bi bi-pencil"></i> <span>Edit</span>
+                                        </div>
                                     </a>
+                                    <form action="/officials/<?= e($official['official_id']); ?>" method="POST" class="col-5 px-0">
+                                        <input type="hidden" name="_METHOD" value="DELETE" />
+                                        <?php include $this->resolve('partials/_csrf.php'); ?>
+                                        <button type="submit" class="btn btn-light btn-sm px-3 d-flex align-items-center justify-content-evenly" style="font-size: 0.8rem;">
+                                            <i class="bi bi-trash"></i> <span>Remove</span>
+                                        </button>
+                                    </form>
 
-                                    <a href="a" class="btn btn-light btn-sm col-5 d-flex align-items-center justify-content-evenly" style="font-size: 0.8rem;">
-                                        <i class="bi bi-trash"></i> <span>Remove</span>
-                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

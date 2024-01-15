@@ -77,4 +77,13 @@ class OfficialsController
         $this->officialsService->update($_POST, $official['official_id']);
         redirectTo('/officials');
     }
+
+
+    public function delete(array $parameters)
+    {
+
+        $this->officialsService->delete((int) $parameters['official']);
+
+        redirectTo('/officials');
+    }
 }

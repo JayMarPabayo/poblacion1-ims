@@ -38,13 +38,18 @@
                         <td><?= convertToYesNo(e($resident['resident_voter_status'])); ?></td>
                         <td><?= e($resident['resident_civil_status']); ?></td>
                         <td class="justify-content-center gap-2 row">
-                            <a href="/residents/<?= e($resident['resident_id']);  ?>" class="btn btn-dark btn-sm col d-flex align-items-center justify-content-evenly" style="font-size: 0.8rem;">
-                                <i class="bi bi-pencil"></i> <span>Edit</span>
+                            <a href="/residents/<?= e($resident['resident_id']);  ?>" class="btn btn-dark btn-sm col-5 px-0">
+                                <div class="d-flex align-items-center justify-content-evenly px-3" style="font-size: 0.8rem;">
+                                    <i class=" bi bi-pencil"></i> <span>Edit</span>
+                                </div>
                             </a>
-
-                            <a href="#" class="btn btn-light btn-sm col d-flex align-items-center justify-content-evenly" style="font-size: 0.8rem;">
-                                <i class="bi bi-trash"></i> <span>Remove</span>
-                            </a>
+                            <form action="/residents/<?= e($resident['resident_id']); ?>" method="POST" class="col-5 px-0">
+                                <input type="hidden" name="_METHOD" value="DELETE" />
+                                <?php include $this->resolve('partials/_csrf.php'); ?>
+                                <button type="submit" class="btn btn-light btn-sm px-3 d-flex align-items-center justify-content-evenly" style="font-size: 0.8rem;">
+                                    <i class="bi bi-trash"></i> <span>Remove</span>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 <?php endforeach; ?>

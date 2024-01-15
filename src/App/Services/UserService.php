@@ -77,13 +77,13 @@ class UserService
 
     public function getAllUsers()
     {
-        $users = $this->db->query("SELECT * FROM tbl_users")->findAll();
+        $users = $this->db->query("SELECT * FROM tbl_users WHERE user_role != 'Inactive'")->findAll();
 
         return $users;
     }
 
 
-    public function getUser(string $id)
+    public function getUser(int $id)
     {
         return $this->db->query(
             "SELECT * FROM tbl_users WHERE user_id = :id",
@@ -120,5 +120,14 @@ class UserService
         );
 
         $_SESSION['update_message'] = "Updated Successfully";
+    }
+
+
+    public function delete(int $id)
+    {
+
+        $this->db->query("UPDATE tbl_users SET user_role = 'Inactive' WHERE user_id = :id", ['id' => $id]);
+
+        $_SESSION['delete_message'] = "Removed Successfully";
     }
 }
