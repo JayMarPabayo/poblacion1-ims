@@ -108,4 +108,28 @@
         </a>
     </div>
 </main>
+<script>
+    const getResidents = () => {
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", "/fetchresidents", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                var jsonResponse = xhr.responseText;
+                console.log(jsonResponse);
+            } else {
+                console.error("Error fetching residents. Status: " + xhr.status);
+            }
+        };
+
+        xhr.onerror = function() {
+            console.error("Network error while fetching residents.");
+        };
+
+        xhr.send();
+    };
+
+    getResidents();
+</script>
 <?php include $this->resolve("partials/_footer.php"); ?>

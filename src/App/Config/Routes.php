@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Config;
 
 use Framework\App;
-use App\Controllers\{HomeController, ResidentsController, AuthController, OfficialsController};
+use App\Controllers\{HomeController, ResidentsController, AuthController, OfficialsController, ErrorController, DocumentController};
 use App\Middleware\{AuthRequiredMiddleware, GuestOnlyMiddleware};
 
 function registerRoutes(App $app)
@@ -28,6 +28,7 @@ function registerRoutes(App $app)
     $app->get('/residents', [ResidentsController::class, 'residentsView'])->add(AuthRequiredMiddleware::class);
     $app->post('/residents', [ResidentsController::class, 'create'])->add(AuthRequiredMiddleware::class);
     $app->get('/residents/{resident}', [ResidentsController::class, 'editView'])->add(AuthRequiredMiddleware::class);
+    $app->get('/fetchresidents', [ResidentsController::class, 'fetchResidents'])->add(AuthRequiredMiddleware::class);
     $app->post('/residents/{resident}', [ResidentsController::class, 'edit'])->add(AuthRequiredMiddleware::class);
     $app->delete('/residents/{resident}', [ResidentsController::class, 'delete'])->add(AuthRequiredMiddleware::class);
 
@@ -37,4 +38,10 @@ function registerRoutes(App $app)
     $app->get('/officials/{official}', [OfficialsController::class, 'editView'])->add(AuthRequiredMiddleware::class);
     $app->post('/officials/{official}', [OfficialsController::class, 'edit'])->add(AuthRequiredMiddleware::class);
     $app->delete('/officials/{official}', [OfficialsController::class, 'delete'])->add(AuthRequiredMiddleware::class);
+
+    $app->setErrorHandler([ErrorController::class, 'notFound']);
+
+    // -- DOCUMENT ROUTES
+
+    $app->get('/services/certificate-of-residency', [DocumentController::class, 'COR_View'])->add(AuthRequiredMiddleware::class);
 }

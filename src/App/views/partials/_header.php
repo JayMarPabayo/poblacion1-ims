@@ -33,7 +33,7 @@
                                 Services
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Barangay Certificate of Residency</a></li>
+                                <li><a class="dropdown-item" href="/services/certificate-of-residency">Barangay Certificate of Residency</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
