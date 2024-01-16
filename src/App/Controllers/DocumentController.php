@@ -16,7 +16,7 @@ class DocumentController
     public function COR_View(array $parameters)
     {
 
-        echo $this->view->render('documents/certificate-of-residency.php', [
+        echo $this->view->render('services/certificate-of-residency.php', [
             'path' => parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
         ]);
     }

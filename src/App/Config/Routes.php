@@ -42,6 +42,5 @@ function registerRoutes(App $app)
     $app->setErrorHandler([ErrorController::class, 'notFound']);
 
     // -- DOCUMENT ROUTES
-
     $app->get('/services/certificate-of-residency', [DocumentController::class, 'COR_View'])->add(AuthRequiredMiddleware::class);
 }
