@@ -81,7 +81,6 @@ class OfficialsController
 
     public function delete(array $parameters)
     {
-
         $this->officialsService->delete((int) $parameters['official']);
 
         redirectTo('/officials');

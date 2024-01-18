@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Config;
 
 use Framework\App;
-use App\Controllers\{HomeController, ResidentsController, AuthController, OfficialsController, ErrorController, DocumentController};
+use App\Controllers\{HomeController, ResidentsController, AuthController, OfficialsController, ErrorController, DocumentsController};
 use App\Middleware\{AuthRequiredMiddleware, GuestOnlyMiddleware};
 
 function registerRoutes(App $app)
@@ -39,8 +39,10 @@ function registerRoutes(App $app)
     $app->post('/officials/{official}', [OfficialsController::class, 'edit'])->add(AuthRequiredMiddleware::class);
     $app->delete('/officials/{official}', [OfficialsController::class, 'delete'])->add(AuthRequiredMiddleware::class);
 
-    $app->setErrorHandler([ErrorController::class, 'notFound']);
-
     // -- DOCUMENT ROUTES
-    $app->get('/services/certificate-of-residency', [DocumentController::class, 'COR_View'])->add(AuthRequiredMiddleware::class);
+    $app->get('/services/certificate-of-residency', [DocumentsController::class, 'corView'])->add(AuthRequiredMiddleware::class);
+    $app->get('/services/certificate-of-residency/{document}', [DocumentsController::class, 'corPrint'])->add(AuthRequiredMiddleware::class);
+    $app->post('/services/certificate-of-residency', [DocumentsController::class, 'corCreate'])->add(AuthRequiredMiddleware::class);
+
+    $app->setErrorHandler([ErrorController::class, 'notFound']);
 }

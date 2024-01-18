@@ -2,7 +2,7 @@
 
 <main class="container-fluid flex-grow-1 py-2 login-main">
     <div class="row pt-2 px-5 mx-5 gy-3">
-        <a href="https://www.philatlas.com/mindanao/r10/misamis-oriental/villanueva.html" target="_blank" class="col-3 text-decoration-none cursor-pointer">
+        <a href="" class="col-3 text-decoration-none cursor-pointer">
             <div class="card py-4 text-white bg-secondary bg-opacity-75">
                 <div class="card-body">
                     <header class="d-flex justify-content-between">
@@ -15,7 +15,7 @@
                 </div>
             </div>
         </a>
-        <a href="https://en.wikipedia.org/wiki/Villanueva,_Misamis_Oriental" target="_blank" class="col-3 text-decoration-none cursor-pointer">
+        <a href="" class="col-3 text-decoration-none cursor-pointer">
             <div class="card py-4 text-light bg-dark bg-opacity-75">
                 <div class="card-body">
                     <header class="d-flex justify-content-between">
@@ -28,7 +28,7 @@
                 </div>
             </div>
         </a>
-        <a href="https://en.wikipedia.org/wiki/Villanueva,_Misamis_Oriental" target="_blank" class="col-3 text-decoration-none cursor-pointer">
+        <a href="" class="col-3 text-decoration-none cursor-pointer">
             <div class="card py-4 bg-primary bg-opacity-75">
                 <div class="card-body">
                     <header class="d-flex justify-content-between">
@@ -41,7 +41,7 @@
                 </div>
             </div>
         </a>
-        <a href="https://www.philatlas.com/mindanao/r10/misamis-oriental/villanueva.html" target="_blank" class="col-3 text-decoration-none cursor-pointer">
+        <a href="" class="col-3 text-decoration-none cursor-pointer">
             <div class="card py-4 bg-danger bg-opacity-75">
                 <div class="card-body">
                     <header class="d-flex justify-content-between">
@@ -54,7 +54,7 @@
                 </div>
             </div>
         </a>
-        <a href="https://www.philatlas.com/mindanao/r10/misamis-oriental/villanueva.html" target="_blank" class="col-3 text-decoration-none cursor-pointer">
+        <a href="" class="col-3 text-decoration-none cursor-pointer">
             <div class="card py-4 bg-info bg-opacity-75">
                 <div class="card-body">
                     <header class="d-flex justify-content-between">
@@ -67,7 +67,7 @@
                 </div>
             </div>
         </a>
-        <a href="https://www.philatlas.com/mindanao/r10/misamis-oriental/villanueva.html" target="_blank" class="col-3 text-decoration-none cursor-pointer">
+        <a href="" class="col-3 text-decoration-none cursor-pointer">
             <div class="card py-4 bg-light bg-opacity-75">
                 <div class="card-body">
                     <header class="d-flex justify-content-between">
@@ -80,7 +80,7 @@
                 </div>
             </div>
         </a>
-        <a href="https://www.philatlas.com/mindanao/r10/misamis-oriental/villanueva.html" target="_blank" class="col-3 text-decoration-none cursor-pointer">
+        <a href="" class="col-3 text-decoration-none cursor-pointer">
             <div class="card py-4 bg-success bg-opacity-75">
                 <div class="card-body">
                     <header class="d-flex justify-content-between">
@@ -93,7 +93,7 @@
                 </div>
             </div>
         </a>
-        <a href="https://www.philatlas.com/mindanao/r10/misamis-oriental/villanueva.html" target="_blank" class="col-3 text-decoration-none cursor-pointer">
+        <a href="" class="col-3 text-decoration-none cursor-pointer">
             <div class="card py-4 bg-warning bg-opacity-75">
                 <div class="card-body">
                     <header class="d-flex justify-content-between">
@@ -108,28 +108,4 @@
         </a>
     </div>
 </main>
-<script>
-    const getResidents = () => {
-        let xhr = new XMLHttpRequest();
-        xhr.open("GET", "/fetchresidents", true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-
-        xhr.onload = function() {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                var jsonResponse = xhr.responseText;
-                console.log(jsonResponse);
-            } else {
-                console.error("Error fetching residents. Status: " + xhr.status);
-            }
-        };
-
-        xhr.onerror = function() {
-            console.error("Network error while fetching residents.");
-        };
-
-        xhr.send();
-    };
-
-    getResidents();
-</script>
 <?php include $this->resolve("partials/_footer.php"); ?>

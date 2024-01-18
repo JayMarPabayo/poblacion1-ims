@@ -128,12 +128,6 @@
 
 
     submitAddOfficialBtn.addEventListener("click", () => {
-        const formData = new FormData(addOfficialForm);
-        formData.forEach((value, key) => {
-            console.log(`${key}: ${value}`);
-        });
-
-
         if (residentNameInput.value === null || residentNameInput.value == "") {
             residentNameInput.classList.add("is-invalid");
             return;

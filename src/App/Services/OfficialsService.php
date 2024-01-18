@@ -81,4 +81,10 @@ class OfficialsService
 
         $_SESSION['delete_message'] = "Deleted Successfully";
     }
+
+    public function getPunongBarangay()
+    {
+        $official = $this->db->query("SELECT official_id, CONCAT(resident_first_name, ' ', resident_middle_name, ' ', resident_last_name, ' ', resident_suffix) AS fullname FROM tbl_officials INNER JOIN tbl_residents ON official_resident = resident_id WHERE official_position = 'Punong Barangay'")->find();
+        return $official;
+    }
 }

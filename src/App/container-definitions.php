@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Framework\{TemplateEngine, Database, Container};
 use App\Config\Paths;
-use App\Services\{ValidatorService, UserService, ResidentsService, OfficialsService};
+use App\Services\{ValidatorService, UserService, ResidentsService, OfficialsService, DocumentsService};
 
 return [
     TemplateEngine::class => fn () => new TemplateEngine(Paths::VIEW),
@@ -24,5 +24,9 @@ return [
     OfficialsService::class => function (Container $container) {
         $db = $container->get(Database::class);
         return new OfficialsService($db);
+    },
+    DocumentsService::class => function (Container $container) {
+        $db = $container->get(Database::class);
+        return new DocumentsService($db);
     }
 ];

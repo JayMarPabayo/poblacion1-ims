@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use Framework\TemplateEngine;
-use App\Services\{ValidatorService, ResidentsService};
+use App\Services\{ValidatorService, ResidentsService, OfficialsService};
 
 class ResidentsController
 {
-    public function __construct(private TemplateEngine $view, private ValidatorService $validatorService, private ResidentsService $residentsService)
+    public function __construct(private TemplateEngine $view, private ValidatorService $validatorService, private ResidentsService $residentsService, private OfficialsService $officialsService)
     {
     }
 
@@ -96,44 +96,20 @@ class ResidentsController
 
     public function fetchResidents()
     {
-        $page = $_GET['page'] ?? 1;
-        $page = (int) $page;
+
         $length = 10;
-        $offset = ($page - 1) * $length;
-        $search = $_GET['search'] ?? null;
+        $offset = 0;
 
         [$residents, $count] = $this->residentsService->getAllResidents(
             $length,
             $offset
         );
 
-        $lastPage = ceil($count / $length);
-        $pages = $lastPage ? range(1, $lastPage) : [];
-        $pageLinks = array_map(
-            fn ($pageNum) => http_build_query([
-                'page' => $pageNum,
-                'search' => $search
-            ]),
-            $pages
-        );
+        $punongBarangay = $this->officialsService->getPunongBarangay();
 
-        $response = [
-            'residents' => $residents,
-            'currentPage' => $page,
-            'lastPage' => $lastPage,
-            'previousPageQuery' => http_build_query([
-                'page' => $page - 1,
-                'search' => $search
-            ]),
-            'nextPageQuery' => http_build_query([
-                'page' => $page + 1,
-                'search' => $search
-            ]),
-            'pageLinks' => $pageLinks,
-            'search' => $search,
-            'path' => parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
-        ];
-
-        return json_encode($response);
+        echo json_encode([
+            'residents' =>  $residents,
+            'punongBarangay' => $punongBarangay
+        ]);
     }
 }
