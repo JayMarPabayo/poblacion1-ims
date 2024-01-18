@@ -52,4 +52,12 @@ class DocumentsService
             ]
         )->find();
     }
+
+    public function corDelete(int $id)
+    {
+
+        $this->db->query("DELETE FROM tbl_certificates_of_residency WHERE cor_id = :id", ['id' => $id]);
+
+        $_SESSION['delete_message'] = "Deleted Successfully";
+    }
 }

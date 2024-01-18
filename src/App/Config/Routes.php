@@ -41,8 +41,9 @@ function registerRoutes(App $app)
 
     // -- DOCUMENT ROUTES
     $app->get('/services/certificate-of-residency', [DocumentsController::class, 'corView'])->add(AuthRequiredMiddleware::class);
-    $app->get('/services/certificate-of-residency/{document}', [DocumentsController::class, 'corPrint'])->add(AuthRequiredMiddleware::class);
     $app->post('/services/certificate-of-residency', [DocumentsController::class, 'corCreate'])->add(AuthRequiredMiddleware::class);
+    $app->get('/services/certificate-of-residency/{document}', [DocumentsController::class, 'corPrint'])->add(AuthRequiredMiddleware::class);
+    $app->delete('/services/certificate-of-residency/{document}', [DocumentsController::class, 'corDelete'])->add(AuthRequiredMiddleware::class);
 
     $app->setErrorHandler([ErrorController::class, 'notFound']);
 }

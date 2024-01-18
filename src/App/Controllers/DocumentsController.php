@@ -75,4 +75,11 @@ class DocumentsController
             'path' => parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
         ]);
     }
+
+    public function corDelete(array $parameters)
+    {
+        $this->documentsService->corDelete((int) $parameters['document']);
+
+        redirectTo('/services/certificate-of-residency');
+    }
 }

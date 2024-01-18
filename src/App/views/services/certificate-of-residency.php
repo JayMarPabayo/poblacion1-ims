@@ -36,7 +36,7 @@
                                             <i class="bi bi-printer-fill"></i> <span>Print</span>
                                         </button>
                                     </a>
-                                    <form action="#" method="POST" class="col flex">
+                                    <form action="certificate-of-residency/<?= e($record['cor_id']); ?>" method="POST" class="col flex">
                                         <input type="hidden" name="_METHOD" value="DELETE" />
                                         <?php include $this->resolve('partials/_csrf.php'); ?>
                                         <button type="submit" class="btn btn-light p-0 h-100 w-100 d-flex align-items-center justify-content-center gap-2 px-2 py-1" style="font-size: 0.8rem;">
