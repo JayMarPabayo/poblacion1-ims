@@ -1,6 +1,6 @@
 <?php
 require(__DIR__  . "/../fpdf/fpdf.php");
-header('content-type:image/jpeg');
+header('content-type:application/pdf');
 $robotoBold = __DIR__  . "/../Roboto-Bold.ttf";
 $robotoRegular = __DIR__  . "/../Roboto-Regular.ttf";
 $filename = generateFilename($document['fullname'], $document['date'], 'certificate of residency');
