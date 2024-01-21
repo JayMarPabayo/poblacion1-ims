@@ -29,10 +29,10 @@
                             <a href="/" class="nav-link <?= $path === '/' ? 'active' : ''; ?>" aria-current="page">Dashboard</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle <?= strpos($path, '/services') === 0 ? 'active' : ''; ?>" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Services
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="font-size: 0.85rem;">
                                 <li><a class="dropdown-item" href="/services/certificate-of-residency">Barangay Certificate of Residency</a></li>
                                 <li><a class="dropdown-item" href="/services/certificate-of-indigency">Barangay Certificate of Indigency</a></li>
                             </ul>

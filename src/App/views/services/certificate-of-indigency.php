@@ -38,15 +38,48 @@
                                             <i class="bi bi-file-earmark-pdf-fill"></i> <span>Export</span>
                                         </button>
                                     </a>
-                                    <form action="certificate-of-indigency/<?= e($record['coi_id']); ?>" method="POST" class="col flex">
-                                        <input type="hidden" name="_METHOD" value="DELETE" />
-                                        <?php include $this->resolve('partials/_csrf.php'); ?>
-                                        <button type="submit" class="btn btn-light p-0 h-100 w-100 d-flex align-items-center justify-content-center gap-2 px-2 py-1" style="font-size: 0.8rem;">
+                                    <div class="col text-white flex">
+                                        <button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal<?= e($record['coi_id']); ?>" class="btn btn-light p-0 h-100 w-100 d-flex align-items-center justify-content-center gap-2 px-2 py-1" style="font-size: 0.8rem;">
                                             <i class="bi bi-trash-fill"></i> <span>Remove</span>
                                         </button>
-                                    </form>
+                                    </div>
                                 </td>
                             </tr>
+                            <!-- Delete Confirmation Modal -->
+                            <div class="modal fade" id="deleteModal<?= e($record['coi_id']); ?>" aria-hidden="true" aria-labelledby="deleteModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Confirmation</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body px-0 pb-0 pt-3 d-flex flex-column justify-content-between gap-3">
+                                            <div class="px-3">
+                                                Are you sure you want to delete this record?
+                                            </div>
+                                            <div class="alert alert-warning d-flex align-items-center gap-2 mb-0 w-100 px-1 py-2 rounded-0" role="alert" style="font-size: 0.75rem">
+                                                <i class="bi bi-exclamation-circle-fill"></i>
+                                                <div>
+                                                    This action cannot be undone.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer px-2">
+                                            <form action="certificate-of-indigency/<?= e($record['coi_id']); ?>" method="POST">
+                                                <input type="hidden" name="_METHOD" value="DELETE" />
+                                                <?php include $this->resolve('partials/_csrf.php'); ?>
+                                                <button type="button" class="btn btn-light col" data-bs-target="#deleteModal" data-bs-toggle="modal">
+                                                    No
+                                                </button>
+                                                <button type="submit" class="btn btn-dark col">
+                                                    Yes
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END: Delete Confirmation Modal -->
                         <?php endforeach; ?>
                     </tbody>
                 </table>

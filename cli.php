@@ -10,20 +10,7 @@ $db = new Database('mysql', [
     'dbname' => 'bpims_db'
 ], 'root', '');
 
-try {
-    $db->connection->beginTransaction();
-    // $db->connection->query("INSERT INTO tbl_users VALUES()");
-    $key = "Juan";
-    $query = "SELECT * FROM tbl_users WHERE user_first_name=:firstname";
-    $stmt = $db->connection->prepare($query);
-    $stmt->bindValue('firstname', $key, PDO::PARAM_STR);
-    $stmt->execute();
 
-    var_dump($stmt->fetchAll(PDO::FETCH_OBJ));
-    $db->connection->commit();
-} catch (Exception $error) {
-    if ($db->connection->inTransaction()) {
-        $db->connection->rollBack();
-    }
-    echo "Transaction failed!";
-}
+$sqlfile = file_get_contents("./database.sql");
+
+$db->connection->query($sqlfile);

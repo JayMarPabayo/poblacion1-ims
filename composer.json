@@ -23,6 +23,6 @@
       
   },
   "scripts": {
-    "p1ims": "php cli.php"
+    "loadsql": "php cli.php"
   }
 }
