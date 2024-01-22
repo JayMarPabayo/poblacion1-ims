@@ -171,7 +171,7 @@
                             hiddenInput.value = resident.resident_id;
                             applicantName.value = `${resident.resident_first_name} ${resident.resident_middle_name} ${resident.resident_last_name} ${resident.resident_suffix}`;
                             searchInput.value = `${resident.resident_first_name} ${resident.resident_middle_name} ${resident.resident_last_name} ${resident.resident_suffix}`;
-                            punongBarangay.value = data.punongBarangay.fullname;
+                            punongBarangay.value = data.punongBarangay.fullname ?? "N/A";
                             applicantName.classList.remove("is-invalid");
                             applicantPurpose.classList.remove("is-invalid");
                             punongBarangay.classList.remove("is-invalid");

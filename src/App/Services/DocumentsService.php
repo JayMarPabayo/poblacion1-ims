@@ -113,4 +113,63 @@ class DocumentsService
         $_SESSION['delete_message'] = "Deleted Successfully";
     }
     // -- END: Certificate of Indigency --
+
+    // -- Barangay Clearance
+    public function BcCreate(array $formData)
+    {
+        $this->db->query(
+            "INSERT INTO tbl_brgy_clearances (bc_applicant , bc_purpose, bc_ctc, bc_issue_place, bc_brgy_captain, bc_date_time, bc_created_by) VALUES (:applicant, :purpose, :ctc, :issueplace, :punongbarangay, now(), :createdby)",
+            [
+                'applicant' => $formData['applicant-id'],
+                'purpose' => $formData['applicant-purpose'],
+                'ctc' => $formData['ctc-no'],
+                'issueplace'  => $formData['issue-place'],
+                'punongbarangay'  => $formData['punong-barangay'],
+                'createdby'  => $_SESSION['user']
+            ]
+        );
+
+        $_SESSION['update_message'] = "Created Successfully";
+    }
+
+    public function BcGetAllRecords(int $length, int $offset)
+    {
+        $search = addcslashes($_GET['search'] ?? "", '%_');
+        $parameters = ['search' => "%{$search}%"];
+        $records = $this->db->query("SELECT * FROM tbl_brgy_clearances LEFT JOIN tbl_residents ON bc_applicant = resident_id INNER JOIN tbl_users ON bc_created_by = user_id WHERE resident_first_name LIKE :search OR resident_last_name LIKE :search 
+        OR resident_middle_name LIKE :search ORDER BY bc_date_time DESC LIMIT {$length} OFFSET {$offset}", $parameters)->findAll();
+
+        $recordsCount = $this->db->query("SELECT * FROM tbl_brgy_clearances LEFT JOIN tbl_residents ON bc_applicant = resident_id INNER JOIN tbl_users ON bc_created_by = user_id WHERE resident_first_name LIKE :search OR resident_last_name LIKE :search 
+        OR resident_middle_name LIKE :search", $parameters)->count();
+
+        return [$records, $recordsCount];
+    }
+
+    public function getBcDocument(int $id)
+    {
+        return $this->db->query(
+            "SELECT CONCAT(resident_first_name, ' ', resident_middle_name, ' ', resident_last_name, ' ', resident_suffix) AS fullname,
+            bc_purpose AS purpose,
+            bc_ctc AS ctcno,
+            bc_issue_place AS issueplace,
+            bc_date_time AS date,
+            purok_name as purok
+            FROM tbl_brgy_clearances
+            LEFT JOIN tbl_residents ON bc_applicant = resident_id
+            LEFT JOIN tbl_purok ON resident_purok = purok_id
+            WHERE bc_id = :id",
+            [
+                'id' => $id,
+            ]
+        )->find();
+    }
+
+    public function bcDelete(int $id)
+    {
+
+        $this->db->query("DELETE FROM tbl_brgy_clearances WHERE bc_id = :id", ['id' => $id]);
+
+        $_SESSION['delete_message'] = "Deleted Successfully";
+    }
+    // -- END: Barangay Clearance --
 }

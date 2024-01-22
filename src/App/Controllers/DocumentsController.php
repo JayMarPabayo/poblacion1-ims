@@ -150,4 +150,76 @@ class DocumentsController
         redirectTo('/services/certificate-of-indigency');
     }
     // -- END: Certificate of Indigency
+
+    // -- Barangay Clearance
+    public function bcView(array $parameters)
+    {
+
+        $page = $_GET['page'] ?? 1;
+        $page = (int) $page;
+        $length = 5;
+        $offset = ($page - 1) * $length;
+        $search = $_GET['search'] ?? null;
+
+        [$records, $count] = $this->documentsService->bcGetAllRecords(
+            $length,
+            $offset
+        );
+
+        $lastPage = ceil($count / $length);
+        $pages = $lastPage ? range(1, $lastPage) : [];
+        $pageLinks = array_map(
+            fn ($pageNum) => http_build_query([
+                'page' => $pageNum,
+                'search' => $search
+            ]),
+            $pages
+        );
+
+
+        echo $this->view->render('services/barangay-clearance.php', [
+            'records' => $records,
+            'currentPage' => $page,
+            'lastPage' => $lastPage,
+            'previousPageQuery' => http_build_query([
+                'page' => $page - 1,
+                'search' => $search
+            ]),
+            'nextPageQuery' => http_build_query([
+                'page' => $page + 1,
+                'search' => $search
+            ]),
+            'pageLinks' => $pageLinks,
+            'search' => $search,
+            'path' => parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
+        ]);
+    }
+
+    public function bcCreate()
+    {
+        $this->documentsService->bcCreate($_POST);
+        redirectTo('barangay-clearance');
+    }
+
+    public function bcPrint(array $parameters)
+    {
+        $document = $this->documentsService->getBcDocument((int) $parameters['document']);
+
+        if (!$document) {
+            redirectTo('services/barangay-clearance');
+        }
+
+        echo $this->view->render('services/templates/barangay-clearance.php', [
+            'document' => $document,
+            'path' => parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
+        ]);
+    }
+
+    public function bcDelete(array $parameters)
+    {
+        $this->documentsService->bcDelete((int) $parameters['document']);
+
+        redirectTo('/services/barangay-clearance');
+    }
+    // -- END: Barangay Clearance
 }
