@@ -55,5 +55,11 @@ function registerRoutes(App $app)
     $app->get('/services/barangay-clearance/{document}', [DocumentsController::class, 'bcPrint'])->add(AuthRequiredMiddleware::class);
     $app->delete('/services/barangay-clearance/{document}', [DocumentsController::class, 'bcDelete'])->add(AuthRequiredMiddleware::class);
 
+    $app->get('/services/pwd-certificate', [DocumentsController::class, 'pwdView'])->add(AuthRequiredMiddleware::class);
+    $app->post('/services/pwd-certificate', [DocumentsController::class, 'pwdCreate'])->add(AuthRequiredMiddleware::class);
+    $app->get('/services/pwd-certificate/{document}', [DocumentsController::class, 'pwdPrint'])->add(AuthRequiredMiddleware::class);
+    $app->delete('/services/pwd-certificate/{document}', [DocumentsController::class, 'pwdDelete'])->add(AuthRequiredMiddleware::class);
+
+
     $app->setErrorHandler([ErrorController::class, 'notFound']);
 }

@@ -222,4 +222,76 @@ class DocumentsController
         redirectTo('/services/barangay-clearance');
     }
     // -- END: Barangay Clearance
+
+    // -- PWD Certificate
+    public function pwdView(array $parameters)
+    {
+
+        $page = $_GET['page'] ?? 1;
+        $page = (int) $page;
+        $length = 5;
+        $offset = ($page - 1) * $length;
+        $search = $_GET['search'] ?? null;
+
+        [$records, $count] = $this->documentsService->pwdGetAllRecords(
+            $length,
+            $offset
+        );
+
+        $lastPage = ceil($count / $length);
+        $pages = $lastPage ? range(1, $lastPage) : [];
+        $pageLinks = array_map(
+            fn ($pageNum) => http_build_query([
+                'page' => $pageNum,
+                'search' => $search
+            ]),
+            $pages
+        );
+
+
+        echo $this->view->render('services/pwd-certificate.php', [
+            'records' => $records,
+            'currentPage' => $page,
+            'lastPage' => $lastPage,
+            'previousPageQuery' => http_build_query([
+                'page' => $page - 1,
+                'search' => $search
+            ]),
+            'nextPageQuery' => http_build_query([
+                'page' => $page + 1,
+                'search' => $search
+            ]),
+            'pageLinks' => $pageLinks,
+            'search' => $search,
+            'path' => parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
+        ]);
+    }
+
+    public function pwdCreate()
+    {
+        $this->documentsService->pwdCreate($_POST);
+        redirectTo('pwd-certificate');
+    }
+
+    public function pwdPrint(array $parameters)
+    {
+        $document = $this->documentsService->getPwdDocument((int) $parameters['document']);
+
+        if (!$document) {
+            redirectTo('services/pwd-certificate');
+        }
+
+        echo $this->view->render('services/templates/pwd-certificate.php', [
+            'document' => $document,
+            'path' => parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
+        ]);
+    }
+
+    public function pwdDelete(array $parameters)
+    {
+        $this->documentsService->pwdDelete((int) $parameters['document']);
+
+        redirectTo('/services/pwd-certificate');
+    }
+    // -- END: PWD Certificate
 }

@@ -35,6 +35,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="font-size: 0.85rem;">
                                 <li><a class="dropdown-item" href="/services/certificate-of-residency">Barangay Certificate of Residency</a></li>
                                 <li><a class="dropdown-item" href="/services/certificate-of-indigency">Barangay Certificate of Indigency</a></li>
+                                <li><a class="dropdown-item" href="/services/pwd-certificate">PWD Certificate</a></li>
                                 <li><a class="dropdown-item" href="/services/barangay-clearance">Barangay Clearance</a></li>
                             </ul>
                         </li>

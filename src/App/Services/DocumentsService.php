@@ -62,7 +62,7 @@ class DocumentsService
     // -- END: Certificate of Residency --
 
 
-    // -- Certificate of Indigency
+    // -- Certificate of Indigency -- 
     public function coiCreate(array $formData)
     {
         $this->db->query(
@@ -114,7 +114,7 @@ class DocumentsService
     }
     // -- END: Certificate of Indigency --
 
-    // -- Barangay Clearance
+    // -- Barangay Clearance --
     public function BcCreate(array $formData)
     {
         $this->db->query(
@@ -172,4 +172,59 @@ class DocumentsService
         $_SESSION['delete_message'] = "Deleted Successfully";
     }
     // -- END: Barangay Clearance --
+
+    // -- PWD Certificate --
+    public function PwdCreate(array $formData)
+    {
+        $this->db->query(
+            "INSERT INTO tbl_pwd_certificates (pwd_applicant , pwd_condition, pwd_brgy_captain, pwd_date_time, pwd_created_by) VALUES (:applicant, :condition, :punongbarangay, now(), :createdby)",
+            [
+                'applicant' => $formData['applicant-id'],
+                'condition' => $formData['applicant-condition'],
+                'punongbarangay'  => $formData['punong-barangay'],
+                'createdby'  => $_SESSION['user']
+            ]
+        );
+
+        $_SESSION['update_message'] = "Created Successfully";
+    }
+
+    public function PwdGetAllRecords(int $length, int $offset)
+    {
+        $search = addcslashes($_GET['search'] ?? "", '%_');
+        $parameters = ['search' => "%{$search}%"];
+        $records = $this->db->query("SELECT * FROM tbl_pwd_certificates LEFT JOIN tbl_residents ON pwd_applicant = resident_id INNER JOIN tbl_users ON pwd_created_by = user_id WHERE resident_first_name LIKE :search OR resident_last_name LIKE :search 
+            OR resident_middle_name LIKE :search ORDER BY pwd_date_time DESC LIMIT {$length} OFFSET {$offset}", $parameters)->findAll();
+
+        $recordsCount = $this->db->query("SELECT * FROM tbl_pwd_certificates LEFT JOIN tbl_residents ON pwd_applicant = resident_id INNER JOIN tbl_users ON pwd_created_by = user_id WHERE resident_first_name LIKE :search OR resident_last_name LIKE :search 
+            OR resident_middle_name LIKE :search", $parameters)->count();
+
+        return [$records, $recordsCount];
+    }
+
+    public function getPwdDocument(int $id)
+    {
+        return $this->db->query(
+            "SELECT CONCAT(resident_first_name, ' ', resident_middle_name, ' ', resident_last_name, ' ', resident_suffix) AS fullname,
+                pwd_condition AS disability,
+                pwd_date_time AS date,
+                purok_name AS purok
+                FROM tbl_pwd_certificates
+                LEFT JOIN tbl_residents ON pwd_applicant = resident_id
+                LEFT JOIN tbl_purok ON resident_purok = purok_id
+                WHERE pwd_id = :id",
+            [
+                'id' => $id,
+            ]
+        )->find();
+    }
+
+    public function pwdDelete(int $id)
+    {
+
+        $this->db->query("DELETE FROM tbl_pwd_certificates WHERE pwd_id = :id", ['id' => $id]);
+
+        $_SESSION['delete_message'] = "Deleted Successfully";
+    }
+    // -- END: PWD Certificate --
 }
