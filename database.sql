@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 21, 2024 at 10:40 PM
+-- Generation Time: Jan 23, 2024 at 11:41 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -98,6 +98,34 @@ CREATE TABLE IF NOT EXISTS `tbl_blotter_victims` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_brgy_clearances`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_brgy_clearances` (
+  `bc_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `bc_applicant` bigint(20) NOT NULL,
+  `bc_purpose` varchar(255) NOT NULL,
+  `bc_ctc` varchar(100) NOT NULL,
+  `bc_issue_place` varchar(255) NOT NULL,
+  `bc_brgy_captain` varchar(100) NOT NULL,
+  `bc_date_time` datetime NOT NULL,
+  `bc_created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `bc_created_by` bigint(20) NOT NULL,
+  PRIMARY KEY (`bc_id`),
+  KEY `bc_applicant` (`bc_applicant`),
+  KEY `bc_created_by` (`bc_created_by`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_brgy_clearances`
+--
+
+INSERT INTO `tbl_brgy_clearances` (`bc_id`, `bc_applicant`, `bc_purpose`, `bc_ctc`, `bc_issue_place`, `bc_brgy_captain`, `bc_date_time`, `bc_created_at`, `bc_created_by`) VALUES
+(3, 1, 'Marriage', '1001', '', 'Jose Jalapan Abejo ', '2024-01-23 17:51:18', '2024-01-23 17:51:18', 3);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_certificates_of_indigency`
 --
 
@@ -181,14 +209,15 @@ CREATE TABLE IF NOT EXISTS `tbl_officials` (
   `official_updated_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`official_id`),
   KEY `officer_resident` (`official_resident`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_officials`
 --
 
 INSERT INTO `tbl_officials` (`official_id`, `official_resident`, `official_position`, `official_created_at`, `official_updated_at`) VALUES
-(13, 2, 'Barangay Kagawad', '2024-01-15 09:09:42', '2024-01-15 09:09:42');
+(13, 2, 'Barangay Kagawad', '2024-01-15 09:09:42', '2024-01-15 09:09:42'),
+(16, 3, 'Punong Barangay', '2024-01-22 21:17:45', '2024-01-22 21:17:45');
 
 -- --------------------------------------------------------
 
@@ -214,6 +243,32 @@ INSERT INTO `tbl_purok` (`purok_id`, `purok_name`) VALUES
 (5, 'Silao 1-B'),
 (6, 'Silao 2'),
 (7, 'Seaside');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_pwd_certificates`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_pwd_certificates` (
+  `pwd_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `pwd_applicant` bigint(20) NOT NULL,
+  `pwd_condition` varchar(255) NOT NULL,
+  `pwd_brgy_captain` varchar(100) NOT NULL,
+  `pwd_date_time` datetime NOT NULL,
+  `pwd_created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `pwd_created_by` bigint(20) NOT NULL,
+  PRIMARY KEY (`pwd_id`),
+  KEY `pwd_applicant` (`pwd_applicant`),
+  KEY `pwd_created_by` (`pwd_created_by`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_pwd_certificates`
+--
+
+INSERT INTO `tbl_pwd_certificates` (`pwd_id`, `pwd_applicant`, `pwd_condition`, `pwd_brgy_captain`, `pwd_date_time`, `pwd_created_at`, `pwd_created_by`) VALUES
+(2, 1, 'Cripple', 'Jose Jalapan Abejo ', '2024-01-23 18:31:57', '2024-01-23 18:31:57', 3);
 
 -- --------------------------------------------------------
 
@@ -278,29 +333,9 @@ CREATE TABLE IF NOT EXISTS `tbl_users` (
 --
 
 INSERT INTO `tbl_users` (`user_id`, `user_first_name`, `user_middle_name`, `user_last_name`, `user_email`, `user_username`, `user_password`, `user_role`, `user_created_at`, `user_updated_at`, `user_last_logon`) VALUES
-(3, 'Maria', 'Dela', 'Santos', 'mariasantos@gmail.com', 'maria', '$2y$12$kZsiT1nmhhLiqDGtesP2fOIAE0zZUlqksTI01I4.KIfQBDdrjv4xi', 'Administrator', '2024-01-10 12:43:21', '2024-01-15 12:19:18', '2024-01-21 11:00:48'),
+(3, 'Maria', 'Dela', 'Santos', 'mariasantos@gmail.com', 'maria', '$2y$12$kZsiT1nmhhLiqDGtesP2fOIAE0zZUlqksTI01I4.KIfQBDdrjv4xi', 'Administrator', '2024-01-10 12:43:21', '2024-01-15 12:19:18', '2024-01-23 17:50:13'),
 (4, 'Juan', 'Dela', 'Cruz', 'juandelacruz@gmail.com', 'juan', '$2y$12$tBeQB0ZMYk2I21SGR5nP7OyGHOW.Fs7aHKEwQuQc9IIjHeN4i.8Vq', 'Inactive', '2024-01-15 09:36:34', '2024-01-15 09:36:34', NULL),
 (5, 'Jay Mar', 'Batas', 'Pabayo', 'jaymarpabayo@gmail.com', 'green17', '$2y$12$0QfhKXlgWRToW3zYeNmZv.mtdMLT8jtN8fujZVNwBwQARBf/XIDnq', 'Inactive', '2024-01-21 23:38:59', '2024-01-21 23:38:59', NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tb_brgy_clearances`
---
-
-CREATE TABLE IF NOT EXISTS `tb_brgy_clearances` (
-  `bc_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `bc_applicant` bigint(20) NOT NULL,
-  `bc_purpose` varchar(255) NOT NULL,
-  `bc_ctc` varchar(100) NOT NULL,
-  `bc_issue_place` varchar(255) NOT NULL,
-  `bc_date_time` datetime NOT NULL,
-  `bc_created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `bc_created_by` bigint(20) NOT NULL,
-  PRIMARY KEY (`bc_id`),
-  KEY `bc_applicant` (`bc_applicant`),
-  KEY `bc_created_by` (`bc_created_by`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Constraints for dumped tables
@@ -337,6 +372,13 @@ ALTER TABLE `tbl_blotter_victims`
   ADD CONSTRAINT `tbl_blotter_victims_ibfk_2` FOREIGN KEY (`victims_resident`) REFERENCES `tbl_residents` (`resident_id`);
 
 --
+-- Constraints for table `tbl_brgy_clearances`
+--
+ALTER TABLE `tbl_brgy_clearances`
+  ADD CONSTRAINT `tbl_brgy_clearances_ibfk_1` FOREIGN KEY (`bc_applicant`) REFERENCES `tbl_residents` (`resident_id`),
+  ADD CONSTRAINT `tbl_brgy_clearances_ibfk_2` FOREIGN KEY (`bc_created_by`) REFERENCES `tbl_users` (`user_id`);
+
+--
 -- Constraints for table `tbl_certificates_of_indigency`
 --
 ALTER TABLE `tbl_certificates_of_indigency`
@@ -357,18 +399,18 @@ ALTER TABLE `tbl_officials`
   ADD CONSTRAINT `tbl_officials_ibfk_1` FOREIGN KEY (`official_resident`) REFERENCES `tbl_residents` (`resident_id`);
 
 --
+-- Constraints for table `tbl_pwd_certificates`
+--
+ALTER TABLE `tbl_pwd_certificates`
+  ADD CONSTRAINT `tbl_pwd_certificates_ibfk_1` FOREIGN KEY (`pwd_applicant`) REFERENCES `tbl_residents` (`resident_id`),
+  ADD CONSTRAINT `tbl_pwd_certificates_ibfk_2` FOREIGN KEY (`pwd_created_by`) REFERENCES `tbl_users` (`user_id`);
+
+--
 -- Constraints for table `tbl_residents`
 --
 ALTER TABLE `tbl_residents`
   ADD CONSTRAINT `tbl_residents_ibfk_1` FOREIGN KEY (`resident_purok`) REFERENCES `tbl_purok` (`purok_id`),
   ADD CONSTRAINT `tbl_residents_ibfk_2` FOREIGN KEY (`resident_created_by`) REFERENCES `tbl_users` (`user_id`);
-
---
--- Constraints for table `tb_brgy_clearances`
---
-ALTER TABLE `tb_brgy_clearances`
-  ADD CONSTRAINT `tb_brgy_clearances_ibfk_1` FOREIGN KEY (`bc_applicant`) REFERENCES `tbl_residents` (`resident_id`),
-  ADD CONSTRAINT `tb_brgy_clearances_ibfk_2` FOREIGN KEY (`bc_created_by`) REFERENCES `tbl_users` (`user_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
