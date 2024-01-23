@@ -60,6 +60,10 @@ function registerRoutes(App $app)
     $app->get('/services/pwd-certificate/{document}', [DocumentsController::class, 'pwdPrint'])->add(AuthRequiredMiddleware::class);
     $app->delete('/services/pwd-certificate/{document}', [DocumentsController::class, 'pwdDelete'])->add(AuthRequiredMiddleware::class);
 
+    $app->get('/services/business-clearance', [DocumentsController::class, 'bncView'])->add(AuthRequiredMiddleware::class);
+    $app->post('/services/business-clearance', [DocumentsController::class, 'bncCreate'])->add(AuthRequiredMiddleware::class);
+    $app->get('/services/business-clearance/{document}', [DocumentsController::class, 'bncPrint'])->add(AuthRequiredMiddleware::class);
+    $app->delete('/services/business-clearance/{document}', [DocumentsController::class, 'bncDelete'])->add(AuthRequiredMiddleware::class);
 
     $app->setErrorHandler([ErrorController::class, 'notFound']);
 }

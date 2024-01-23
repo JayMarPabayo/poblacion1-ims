@@ -227,4 +227,67 @@ class DocumentsService
         $_SESSION['delete_message'] = "Deleted Successfully";
     }
     // -- END: PWD Certificate --
+
+    // -- Business Clearance --
+    public function bncCreate(array $formData)
+    {
+        $this->db->query(
+            "INSERT INTO tbl_business_clearance (bnc_applicant , bnc_business, bnc_or, bnc_amount, bnc_number, bnc_brg_captain, bnc_date_time, bnc_created_by)
+            VALUES (:applicant, :business, :ornumber, :amount,  :bncnumber, :punongbarangay, :date, :createdby)",
+            [
+                'applicant' => $formData['applicant-id'],
+                'business' => $formData['applicant-business'],
+                'ornumber' => $formData['issue-or'],
+                'amount' => $formData['issue-amount'],
+                'bncnumber' => date('Y') . '-' . $formData['issue-number'],
+                'punongbarangay'  => $formData['punong-barangay'],
+                'date' => $formData['issue-date'],
+                'createdby'  => $_SESSION['user']
+            ]
+        );
+
+        $_SESSION['update_message'] = "Created Successfully";
+    }
+
+    public function bncGetAllRecords(int $length, int $offset)
+    {
+        $search = addcslashes($_GET['search'] ?? "", '%_');
+        $parameters = ['search' => "%{$search}%"];
+        $records = $this->db->query("SELECT * FROM tbl_business_clearance LEFT JOIN tbl_residents ON bnc_applicant = resident_id INNER JOIN tbl_users ON bnc_created_by = user_id WHERE resident_first_name LIKE :search OR resident_last_name LIKE :search 
+                OR resident_middle_name LIKE :search ORDER BY bnc_date_time DESC LIMIT {$length} OFFSET {$offset}", $parameters)->findAll();
+
+        $recordsCount = $this->db->query("SELECT * FROM tbl_business_clearance LEFT JOIN tbl_residents ON bnc_applicant = resident_id INNER JOIN tbl_users ON bnc_created_by = user_id WHERE resident_first_name LIKE :search OR resident_last_name LIKE :search 
+                OR resident_middle_name LIKE :search", $parameters)->count();
+
+        return [$records, $recordsCount];
+    }
+
+    public function getBncDocument(int $id)
+    {
+        return $this->db->query(
+            "SELECT CONCAT(resident_first_name, ' ', resident_middle_name, ' ', resident_last_name, ' ', resident_suffix) AS fullname,
+                    bnc_business AS business,
+                    bnc_or AS ornumber,
+                    bnc_amount AS amount,
+                    bnc_number AS bncnumber,
+                    bnc_date_time AS date,
+                    purok_name AS purok
+                    FROM tbl_business_clearance
+                    LEFT JOIN tbl_residents ON bnc_applicant = resident_id
+                    LEFT JOIN tbl_purok ON resident_purok = purok_id
+                    WHERE bnc_id = :id",
+            [
+                'id' => $id,
+            ]
+        )->find();
+    }
+
+    public function bncDelete(int $id)
+    {
+
+        $this->db->query("DELETE FROM tbl_business_clearance WHERE bnc_id = :id", ['id' => $id]);
+
+        $_SESSION['delete_message'] = "Deleted Successfully";
+    }
+    // -- END: Business Clearance --
 }

@@ -294,4 +294,76 @@ class DocumentsController
         redirectTo('/services/pwd-certificate');
     }
     // -- END: PWD Certificate
+
+    // -- Business Clearance
+    public function bncView(array $parameters)
+    {
+
+        $page = $_GET['page'] ?? 1;
+        $page = (int) $page;
+        $length = 5;
+        $offset = ($page - 1) * $length;
+        $search = $_GET['search'] ?? null;
+
+        [$records, $count] = $this->documentsService->bncGetAllRecords(
+            $length,
+            $offset
+        );
+
+        $lastPage = ceil($count / $length);
+        $pages = $lastPage ? range(1, $lastPage) : [];
+        $pageLinks = array_map(
+            fn ($pageNum) => http_build_query([
+                'page' => $pageNum,
+                'search' => $search
+            ]),
+            $pages
+        );
+
+
+        echo $this->view->render('services/business-clearance.php', [
+            'records' => $records,
+            'currentPage' => $page,
+            'lastPage' => $lastPage,
+            'previousPageQuery' => http_build_query([
+                'page' => $page - 1,
+                'search' => $search
+            ]),
+            'nextPageQuery' => http_build_query([
+                'page' => $page + 1,
+                'search' => $search
+            ]),
+            'pageLinks' => $pageLinks,
+            'search' => $search,
+            'path' => parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
+        ]);
+    }
+
+    public function bncCreate()
+    {
+        $this->documentsService->bncCreate($_POST);
+        redirectTo('business-clearance');
+    }
+
+    public function bncPrint(array $parameters)
+    {
+        $document = $this->documentsService->getBncDocument((int) $parameters['document']);
+
+        if (!$document) {
+            redirectTo('services/business-clearance');
+        }
+
+        echo $this->view->render('services/templates/business-clearance.php', [
+            'document' => $document,
+            'path' => parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
+        ]);
+    }
+
+    public function bncDelete(array $parameters)
+    {
+        $this->documentsService->bncDelete((int) $parameters['document']);
+
+        redirectTo('/services/business-clearance');
+    }
+    // -- END: Business Clearance
 }

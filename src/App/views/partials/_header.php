@@ -13,6 +13,7 @@
 </head>
 
 <body>
+    <?php date_default_timezone_set('Asia/Manila'); ?>
     <nav class="navbar navbar-expand-sm navbar-light bg-light border-bottom">
         <div class="container">
             <a href="/" class="navbar-brand h10">
@@ -37,6 +38,7 @@
                                 <li><a class="dropdown-item" href="/services/certificate-of-indigency">Barangay Certificate of Indigency</a></li>
                                 <li><a class="dropdown-item" href="/services/pwd-certificate">PWD Certificate</a></li>
                                 <li><a class="dropdown-item" href="/services/barangay-clearance">Barangay Clearance</a></li>
+                                <li><a class="dropdown-item" href="/services/business-clearance">Business Clearance</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
