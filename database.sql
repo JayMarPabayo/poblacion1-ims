@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 23, 2024 at 11:41 AM
+-- Generation Time: Jan 23, 2024 at 10:56 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,8 +29,8 @@ USE `bpims_db`;
 -- Table structure for table `tbl_blotters`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_blotters` (
-  `blotter_id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_blotters` (
+  `blotter_id` bigint(20) NOT NULL,
   `blotter_case_number` varchar(255) NOT NULL,
   `blotter_complainant` bigint(20) NOT NULL,
   `blotter_respondent` bigint(20) NOT NULL,
@@ -42,12 +42,7 @@ CREATE TABLE IF NOT EXISTS `tbl_blotters` (
   `blotter_status` varchar(40) NOT NULL DEFAULT 'Scheduled',
   `blotter_notes` varchar(255) NOT NULL,
   `blotter_created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `blotter_updated_at` datetime NOT NULL,
-  PRIMARY KEY (`blotter_id`),
-  KEY `blotter_complainant` (`blotter_complainant`),
-  KEY `blotter_respondent` (`blotter_respondent`),
-  KEY `blotter_victim` (`blotter_victim`),
-  KEY `blotter_incident` (`blotter_incident`)
+  `blotter_updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -56,13 +51,10 @@ CREATE TABLE IF NOT EXISTS `tbl_blotters` (
 -- Table structure for table `tbl_blotter_complainants`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_blotter_complainants` (
-  `complainants_id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_blotter_complainants` (
+  `complainants_id` bigint(20) NOT NULL,
   `complainants_blotter` bigint(20) NOT NULL,
-  `complainants_resident` bigint(20) NOT NULL,
-  PRIMARY KEY (`complainants_id`),
-  KEY `complainants_blotter` (`complainants_blotter`),
-  KEY `complainants_resident` (`complainants_resident`)
+  `complainants_resident` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -71,13 +63,10 @@ CREATE TABLE IF NOT EXISTS `tbl_blotter_complainants` (
 -- Table structure for table `tbl_blotter_respondents`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_blotter_respondents` (
-  `respondents_id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_blotter_respondents` (
+  `respondents_id` bigint(20) NOT NULL,
   `respondents_blotter` bigint(20) NOT NULL,
-  `respondents_resident` bigint(20) NOT NULL,
-  PRIMARY KEY (`respondents_id`),
-  KEY `respondents_blotter` (`respondents_blotter`),
-  KEY `respondents_resident` (`respondents_resident`)
+  `respondents_resident` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -86,13 +75,10 @@ CREATE TABLE IF NOT EXISTS `tbl_blotter_respondents` (
 -- Table structure for table `tbl_blotter_victims`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_blotter_victims` (
-  `victims_id` bigint(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_blotter_victims` (
+  `victims_id` bigint(11) NOT NULL,
   `victims_blotter` bigint(11) NOT NULL,
-  `victims_resident` bigint(11) NOT NULL,
-  PRIMARY KEY (`victims_id`),
-  KEY `victims_blotter` (`victims_blotter`),
-  KEY `victims_resident` (`victims_resident`)
+  `victims_resident` bigint(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -101,8 +87,8 @@ CREATE TABLE IF NOT EXISTS `tbl_blotter_victims` (
 -- Table structure for table `tbl_brgy_clearances`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_brgy_clearances` (
-  `bc_id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_brgy_clearances` (
+  `bc_id` bigint(20) NOT NULL,
   `bc_applicant` bigint(20) NOT NULL,
   `bc_purpose` varchar(255) NOT NULL,
   `bc_ctc` varchar(100) NOT NULL,
@@ -110,11 +96,8 @@ CREATE TABLE IF NOT EXISTS `tbl_brgy_clearances` (
   `bc_brgy_captain` varchar(100) NOT NULL,
   `bc_date_time` datetime NOT NULL,
   `bc_created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `bc_created_by` bigint(20) NOT NULL,
-  PRIMARY KEY (`bc_id`),
-  KEY `bc_applicant` (`bc_applicant`),
-  KEY `bc_created_by` (`bc_created_by`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `bc_created_by` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_brgy_clearances`
@@ -126,21 +109,44 @@ INSERT INTO `tbl_brgy_clearances` (`bc_id`, `bc_applicant`, `bc_purpose`, `bc_ct
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_business_clearance`
+--
+
+CREATE TABLE `tbl_business_clearance` (
+  `bnc_id` bigint(20) NOT NULL,
+  `bnc_applicant` bigint(20) NOT NULL,
+  `bnc_business` varchar(255) NOT NULL,
+  `bnc_or` varchar(100) NOT NULL,
+  `bnc_amount` float NOT NULL,
+  `bnc_number` varchar(100) NOT NULL,
+  `bnc_brg_captain` varchar(255) NOT NULL,
+  `bnc_date_time` datetime NOT NULL,
+  `bnc_created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `bnc_created_by` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_business_clearance`
+--
+
+INSERT INTO `tbl_business_clearance` (`bnc_id`, `bnc_applicant`, `bnc_business`, `bnc_or`, `bnc_amount`, `bnc_number`, `bnc_brg_captain`, `bnc_date_time`, `bnc_created_at`, `bnc_created_by`) VALUES
+(2, 2, 'Maria Store', '1001', 800, '2024-101', 'Jose Jalapan Abejo ', '2024-01-24 00:00:00', '2024-01-24 05:14:52', 3);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_certificates_of_indigency`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_certificates_of_indigency` (
-  `coi_id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_certificates_of_indigency` (
+  `coi_id` bigint(20) NOT NULL,
   `coi_applicant` bigint(20) NOT NULL,
   `coi_purpose` varchar(255) NOT NULL,
   `coi_date_time` datetime NOT NULL,
   `coi_brgy_captain` varchar(100) NOT NULL,
   `coi_created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `coi_created_by` bigint(20) NOT NULL,
-  PRIMARY KEY (`coi_id`),
-  KEY `coi_applicant` (`coi_applicant`),
-  KEY `coi_created_by` (`coi_created_by`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `coi_created_by` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -148,18 +154,15 @@ CREATE TABLE IF NOT EXISTS `tbl_certificates_of_indigency` (
 -- Table structure for table `tbl_certificates_of_residency`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_certificates_of_residency` (
-  `cor_id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_certificates_of_residency` (
+  `cor_id` bigint(20) NOT NULL,
   `cor_resident` bigint(20) NOT NULL,
   `cor_age` int(3) NOT NULL,
   `cor_date_time` datetime NOT NULL,
   `cor_brgy_captain` varchar(100) NOT NULL,
   `cor_created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `cor_created_by` bigint(20) NOT NULL,
-  PRIMARY KEY (`cor_id`),
-  KEY `cor_resident` (`cor_resident`),
-  KEY `cor_created_by` (`cor_created_by`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `cor_created_by` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -167,12 +170,11 @@ CREATE TABLE IF NOT EXISTS `tbl_certificates_of_residency` (
 -- Table structure for table `tbl_incidents`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_incidents` (
-  `incident_id` bigint(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_incidents` (
+  `incident_id` bigint(11) NOT NULL,
   `incident_name` varchar(100) NOT NULL,
-  `incident_description` varchar(255) NOT NULL,
-  PRIMARY KEY (`incident_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `incident_description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_incidents`
@@ -201,15 +203,13 @@ INSERT INTO `tbl_incidents` (`incident_id`, `incident_name`, `incident_descripti
 -- Table structure for table `tbl_officials`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_officials` (
-  `official_id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_officials` (
+  `official_id` bigint(20) NOT NULL,
   `official_resident` bigint(20) NOT NULL,
   `official_position` varchar(255) NOT NULL,
   `official_created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `official_updated_at` datetime NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`official_id`),
-  KEY `officer_resident` (`official_resident`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `official_updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_officials`
@@ -225,11 +225,10 @@ INSERT INTO `tbl_officials` (`official_id`, `official_resident`, `official_posit
 -- Table structure for table `tbl_purok`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_purok` (
-  `purok_id` bigint(11) NOT NULL AUTO_INCREMENT,
-  `purok_name` varchar(24) NOT NULL,
-  PRIMARY KEY (`purok_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `tbl_purok` (
+  `purok_id` bigint(11) NOT NULL,
+  `purok_name` varchar(24) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_purok`
@@ -250,18 +249,15 @@ INSERT INTO `tbl_purok` (`purok_id`, `purok_name`) VALUES
 -- Table structure for table `tbl_pwd_certificates`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_pwd_certificates` (
-  `pwd_id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_pwd_certificates` (
+  `pwd_id` bigint(20) NOT NULL,
   `pwd_applicant` bigint(20) NOT NULL,
   `pwd_condition` varchar(255) NOT NULL,
   `pwd_brgy_captain` varchar(100) NOT NULL,
   `pwd_date_time` datetime NOT NULL,
   `pwd_created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `pwd_created_by` bigint(20) NOT NULL,
-  PRIMARY KEY (`pwd_id`),
-  KEY `pwd_applicant` (`pwd_applicant`),
-  KEY `pwd_created_by` (`pwd_created_by`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `pwd_created_by` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_pwd_certificates`
@@ -276,8 +272,8 @@ INSERT INTO `tbl_pwd_certificates` (`pwd_id`, `pwd_applicant`, `pwd_condition`, 
 -- Table structure for table `tbl_residents`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_residents` (
-  `resident_id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_residents` (
+  `resident_id` bigint(20) NOT NULL,
   `resident_purok` bigint(20) NOT NULL,
   `resident_first_name` varchar(100) NOT NULL,
   `resident_middle_name` varchar(100) NOT NULL,
@@ -292,11 +288,8 @@ CREATE TABLE IF NOT EXISTS `tbl_residents` (
   `resident_religion` varchar(20) DEFAULT NULL,
   `resident_created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `resident_created_by` bigint(20) NOT NULL,
-  `resident_updated_at` datetime NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`resident_id`),
-  KEY `resident_purok` (`resident_purok`),
-  KEY `resident_created_by` (`resident_created_by`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `resident_updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_residents`
@@ -313,8 +306,8 @@ INSERT INTO `tbl_residents` (`resident_id`, `resident_purok`, `resident_first_na
 -- Table structure for table `tbl_users`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_users` (
-  `user_id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_users` (
+  `user_id` bigint(20) NOT NULL,
   `user_first_name` varchar(100) NOT NULL,
   `user_middle_name` varchar(100) DEFAULT NULL,
   `user_last_name` varchar(100) NOT NULL,
@@ -324,9 +317,8 @@ CREATE TABLE IF NOT EXISTS `tbl_users` (
   `user_role` varchar(20) NOT NULL DEFAULT 'Employee',
   `user_created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `user_updated_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `user_last_logon` datetime DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `user_last_logon` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_users`
@@ -336,6 +328,205 @@ INSERT INTO `tbl_users` (`user_id`, `user_first_name`, `user_middle_name`, `user
 (3, 'Maria', 'Dela', 'Santos', 'mariasantos@gmail.com', 'maria', '$2y$12$kZsiT1nmhhLiqDGtesP2fOIAE0zZUlqksTI01I4.KIfQBDdrjv4xi', 'Administrator', '2024-01-10 12:43:21', '2024-01-15 12:19:18', '2024-01-23 17:50:13'),
 (4, 'Juan', 'Dela', 'Cruz', 'juandelacruz@gmail.com', 'juan', '$2y$12$tBeQB0ZMYk2I21SGR5nP7OyGHOW.Fs7aHKEwQuQc9IIjHeN4i.8Vq', 'Inactive', '2024-01-15 09:36:34', '2024-01-15 09:36:34', NULL),
 (5, 'Jay Mar', 'Batas', 'Pabayo', 'jaymarpabayo@gmail.com', 'green17', '$2y$12$0QfhKXlgWRToW3zYeNmZv.mtdMLT8jtN8fujZVNwBwQARBf/XIDnq', 'Inactive', '2024-01-21 23:38:59', '2024-01-21 23:38:59', NULL);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `tbl_blotters`
+--
+ALTER TABLE `tbl_blotters`
+  ADD PRIMARY KEY (`blotter_id`),
+  ADD KEY `blotter_complainant` (`blotter_complainant`),
+  ADD KEY `blotter_respondent` (`blotter_respondent`),
+  ADD KEY `blotter_victim` (`blotter_victim`),
+  ADD KEY `blotter_incident` (`blotter_incident`);
+
+--
+-- Indexes for table `tbl_blotter_complainants`
+--
+ALTER TABLE `tbl_blotter_complainants`
+  ADD PRIMARY KEY (`complainants_id`),
+  ADD KEY `complainants_blotter` (`complainants_blotter`),
+  ADD KEY `complainants_resident` (`complainants_resident`);
+
+--
+-- Indexes for table `tbl_blotter_respondents`
+--
+ALTER TABLE `tbl_blotter_respondents`
+  ADD PRIMARY KEY (`respondents_id`),
+  ADD KEY `respondents_blotter` (`respondents_blotter`),
+  ADD KEY `respondents_resident` (`respondents_resident`);
+
+--
+-- Indexes for table `tbl_blotter_victims`
+--
+ALTER TABLE `tbl_blotter_victims`
+  ADD PRIMARY KEY (`victims_id`),
+  ADD KEY `victims_blotter` (`victims_blotter`),
+  ADD KEY `victims_resident` (`victims_resident`);
+
+--
+-- Indexes for table `tbl_brgy_clearances`
+--
+ALTER TABLE `tbl_brgy_clearances`
+  ADD PRIMARY KEY (`bc_id`),
+  ADD KEY `bc_applicant` (`bc_applicant`),
+  ADD KEY `bc_created_by` (`bc_created_by`);
+
+--
+-- Indexes for table `tbl_business_clearance`
+--
+ALTER TABLE `tbl_business_clearance`
+  ADD PRIMARY KEY (`bnc_id`),
+  ADD KEY `bnc_applicant` (`bnc_applicant`),
+  ADD KEY `bnc_created_by` (`bnc_created_by`);
+
+--
+-- Indexes for table `tbl_certificates_of_indigency`
+--
+ALTER TABLE `tbl_certificates_of_indigency`
+  ADD PRIMARY KEY (`coi_id`),
+  ADD KEY `coi_applicant` (`coi_applicant`),
+  ADD KEY `coi_created_by` (`coi_created_by`);
+
+--
+-- Indexes for table `tbl_certificates_of_residency`
+--
+ALTER TABLE `tbl_certificates_of_residency`
+  ADD PRIMARY KEY (`cor_id`),
+  ADD KEY `cor_resident` (`cor_resident`),
+  ADD KEY `cor_created_by` (`cor_created_by`);
+
+--
+-- Indexes for table `tbl_incidents`
+--
+ALTER TABLE `tbl_incidents`
+  ADD PRIMARY KEY (`incident_id`);
+
+--
+-- Indexes for table `tbl_officials`
+--
+ALTER TABLE `tbl_officials`
+  ADD PRIMARY KEY (`official_id`),
+  ADD KEY `officer_resident` (`official_resident`);
+
+--
+-- Indexes for table `tbl_purok`
+--
+ALTER TABLE `tbl_purok`
+  ADD PRIMARY KEY (`purok_id`);
+
+--
+-- Indexes for table `tbl_pwd_certificates`
+--
+ALTER TABLE `tbl_pwd_certificates`
+  ADD PRIMARY KEY (`pwd_id`),
+  ADD KEY `pwd_applicant` (`pwd_applicant`),
+  ADD KEY `pwd_created_by` (`pwd_created_by`);
+
+--
+-- Indexes for table `tbl_residents`
+--
+ALTER TABLE `tbl_residents`
+  ADD PRIMARY KEY (`resident_id`),
+  ADD KEY `resident_purok` (`resident_purok`),
+  ADD KEY `resident_created_by` (`resident_created_by`);
+
+--
+-- Indexes for table `tbl_users`
+--
+ALTER TABLE `tbl_users`
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tbl_blotters`
+--
+ALTER TABLE `tbl_blotters`
+  MODIFY `blotter_id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_blotter_complainants`
+--
+ALTER TABLE `tbl_blotter_complainants`
+  MODIFY `complainants_id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_blotter_respondents`
+--
+ALTER TABLE `tbl_blotter_respondents`
+  MODIFY `respondents_id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_blotter_victims`
+--
+ALTER TABLE `tbl_blotter_victims`
+  MODIFY `victims_id` bigint(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_brgy_clearances`
+--
+ALTER TABLE `tbl_brgy_clearances`
+  MODIFY `bc_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tbl_business_clearance`
+--
+ALTER TABLE `tbl_business_clearance`
+  MODIFY `bnc_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tbl_certificates_of_indigency`
+--
+ALTER TABLE `tbl_certificates_of_indigency`
+  MODIFY `coi_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tbl_certificates_of_residency`
+--
+ALTER TABLE `tbl_certificates_of_residency`
+  MODIFY `cor_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `tbl_incidents`
+--
+ALTER TABLE `tbl_incidents`
+  MODIFY `incident_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `tbl_officials`
+--
+ALTER TABLE `tbl_officials`
+  MODIFY `official_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `tbl_purok`
+--
+ALTER TABLE `tbl_purok`
+  MODIFY `purok_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `tbl_pwd_certificates`
+--
+ALTER TABLE `tbl_pwd_certificates`
+  MODIFY `pwd_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tbl_residents`
+--
+ALTER TABLE `tbl_residents`
+  MODIFY `resident_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tbl_users`
+--
+ALTER TABLE `tbl_users`
+  MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -377,6 +568,13 @@ ALTER TABLE `tbl_blotter_victims`
 ALTER TABLE `tbl_brgy_clearances`
   ADD CONSTRAINT `tbl_brgy_clearances_ibfk_1` FOREIGN KEY (`bc_applicant`) REFERENCES `tbl_residents` (`resident_id`),
   ADD CONSTRAINT `tbl_brgy_clearances_ibfk_2` FOREIGN KEY (`bc_created_by`) REFERENCES `tbl_users` (`user_id`);
+
+--
+-- Constraints for table `tbl_business_clearance`
+--
+ALTER TABLE `tbl_business_clearance`
+  ADD CONSTRAINT `tbl_business_clearance_ibfk_1` FOREIGN KEY (`bnc_applicant`) REFERENCES `tbl_residents` (`resident_id`),
+  ADD CONSTRAINT `tbl_business_clearance_ibfk_2` FOREIGN KEY (`bnc_created_by`) REFERENCES `tbl_users` (`user_id`);
 
 --
 -- Constraints for table `tbl_certificates_of_indigency`
